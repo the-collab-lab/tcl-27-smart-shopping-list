@@ -29,7 +29,7 @@ There is no one “right” way to pair program, but in general you will meet wi
 
 ## How does it all work?
 
-The project is organized in GitHub as a set of [user stories](https://www.mountaingoatsoftware.com/agile/user-stories), each with a description of the desired functionality as well as [acceptance criteria](https://www.leadingagile.com/2014/09/acceptance-criteria/) that describe how you know whether the task or story is complete. You can find the stories on [the project board]({PROJECT_BOARD_URL}) on GitHub. This is referred to as the “backlog” (the collection of stories) and represents the work needed to complete the project.
+The project is organized in GitHub as a set of [user stories](https://www.mountaingoatsoftware.com/agile/user-stories), each with a description of the desired functionality as well as [acceptance criteria](https://www.leadingagile.com/2014/09/acceptance-criteria/) that describe how you know whether the task or story is complete. You can find the stories on [the project board](https://github.com/the-collab-lab/tcl-27-smart-shopping-list/projects/1) on GitHub. This is referred to as the “backlog” (the collection of stories) and represents the work needed to complete the project.
 
 A task or story is “done” when the following are all true:
 
@@ -85,8 +85,8 @@ When you and your pair partner have working code that you believe is ready to be
 2. Notify the other pair team in Slack that you have a new PR for them to review.
 3. Incorporate feedback from the other pair team into your work until both you and they are satisfied the code is ready to be merged.
 4. Request that one of the mentors review the PR for final approval.
-5. Once approved, merge the PR into `main`. (Your code will be built and deployed to production automatically thanks to [Firebase Hosting](https://firebase.google.com/docs/hosting).)
-6. Check your work on the [production site]({PRODUCTION_URL}).
+5. Once approved, merge the PR into `main`. (Your code will be built and deployed to production automatically thanks to [Firebase hosting](https://firebase.google.com/docs/hosting).)
+6. Check your work on the [production site](https://tcl-27-shopping-list.web.app/).
 7. Celebrate! 🥳
 
 ## When does everything happen?
@@ -135,7 +135,7 @@ Whew, that was a lot, right? There’s a good chance (💯%) we’re forgetting 
 
 ## What's Next?
 
-Your team will kick off the project with your first weekly sync on {COHORT_START_DATE}. In the meeting we will present a Learning Module on git best practices and get everyone set up to collaborate on the app. Afterwards you will schedule pair programming sessions with your partner to work through your story of the week!
+Your team will kick off the project with your first weekly sync on April 4, 2021. In the meeting we will present a Learning Module on git best practices and get everyone set up to collaborate on the app. Afterwards you will schedule pair programming sessions with your partner to work through your story of the week!
 
 ### Let's Do This!
 
