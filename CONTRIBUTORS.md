@@ -8,10 +8,12 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 -[Dani Poplin](https://github.com/DPoplin)
 
+-[Yolanda Haynes](https://github.com/YolandaHaynes) 🎊
+
 ## Mentors
 
 -[Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
 
--[April Leone](https://github.com/aprilleone) 💥 
+-[April Leone](https://github.com/aprilleone) 💥
 
 ## Code of Conduct Contacts
