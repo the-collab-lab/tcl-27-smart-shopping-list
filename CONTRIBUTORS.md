@@ -6,7 +6,10 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Cohort Participants
 
+-[Dani Poplin](https://github.com/DPoplin)
+
 ## Mentors
+
 -[Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
 
 ## Code of Conduct Contacts
