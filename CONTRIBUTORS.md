@@ -12,4 +12,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 -[Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
 
+-[April Leone](https://github.com/aprilleone) 💥 
+
 ## Code of Conduct Contacts
