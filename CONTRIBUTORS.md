@@ -12,6 +12,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 -[Tatyana Celovsky](https://github.com/tcelovsky) :sparkles:
 
+-[Sam Kim](https://github.com/AirZT11) 🖖🏼
+
 ## Mentors
 
 -[Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
