@@ -10,6 +10,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 -[Yolanda Haynes](https://github.com/YolandaHaynes) 🎊
 
+-[Tatyana Celovsky](https://github.com/tcelovsky) :sparkles:
+
 ## Mentors
 
 -[Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
