@@ -7,17 +7,13 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 - [Dani Poplin](https://github.com/DPoplin)
-
 - [Yolanda Haynes](https://github.com/YolandaHaynes) 🎊
-
 - [Tatyana Celovsky](https://github.com/tcelovsky) :sparkles:
-
 - [Sam Kim](https://github.com/AirZT11) 🖖🏼
 
 ## Mentors
 
 - [Lyle Schemmerling](https://github.com/lyleschemmerling) 🙃
-
 - [April Leone](https://github.com/aprilleone) 💥
 
 ## Code of Conduct Contacts
