@@ -20,3 +20,24 @@
 .App-link {
   color: #09d3ac;
 }
+
+nav {
+  position: fixed;
+  bottom: 0px;
+  text-align: center;
+  width: 100%;
+}
+
+li {
+  list-style-type: none;
+  display: inline;
+  padding: 10px;
+}
+
+.nav-link:hover {
+  font-weight: bold;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
