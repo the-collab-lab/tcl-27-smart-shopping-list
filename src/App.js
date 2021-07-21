@@ -29,6 +29,7 @@ function App() {
   return (
     <div className="App">
       <GroceryContainer />
+      <button onClick={handleClick}>Create List...</button>
       <BottomNav />
       <Switch>
         <Route exact path="/">
@@ -38,8 +39,6 @@ function App() {
         <Route path="/list" component={List}></Route>
         <Route path="/add-an-item" component={AddItem}></Route>
       </Switch>
-
-      <button onClick={handleClick}>Create List...</button>
     </div>
   );
 }
