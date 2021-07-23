@@ -7,7 +7,6 @@ import 'firebase/firestore';
 import getToken from './lib/tokens';
 
 import GroceryContainer from './components/containers/GroceryContainer';
-import List from './components/containers/List';
 import AddItem from './components/AddItem';
 import BottomNav from './components/BottomNav';
 
@@ -28,16 +27,15 @@ function App() {
 
   return (
     <div className="App">
-      <GroceryContainer />
       <button onClick={handleClick}>Create List...</button>
       <BottomNav />
+
       <Switch>
         <Route exact path="/">
-          {loggedIn ? <Redirect to="/list" /> : null}
+          {loggedIn && <Redirect to="/list" />}
         </Route>
-
-        <Route path="/list" component={List}></Route>
-        <Route path="/add-an-item" component={AddItem}></Route>
+        <Route exact path="/list" component={GroceryContainer}></Route>
+        <Route exact path="/add-an-item" component={AddItem}></Route>
       </Switch>
     </div>
   );
