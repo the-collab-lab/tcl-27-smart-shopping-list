@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { fb } from '../../lib/firebase';
 import uuid from 'react-uuid';
-
 import GroceryCard from '../GroceryCard';
+import AddItem from '../AddItem';
 
 const GroceryContainer = () => {
   const [grocery, setGrocery] = useState([]);
@@ -35,14 +35,6 @@ const GroceryContainer = () => {
   return (
     <div>
       GroceryContainer
-      <br />
-      <button
-        onClick={() =>
-          postItem({ id: uuid(), item: 'oranges', quantity: 5, frequency: 1 })
-        }
-      >
-        submit an item...
-      </button>
       <ul>
         {grocery.map((g) => (
           <li key={g.id}>
