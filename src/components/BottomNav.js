@@ -6,7 +6,7 @@ const BottomNav = () => {
     <nav>
       <ul>
         <li>
-          <NavLink className="nav-link" to="/grocerycontainer">
+          <NavLink className="nav-link" to="/list">
             List
           </NavLink>
         </li>

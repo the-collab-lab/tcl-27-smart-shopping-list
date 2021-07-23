@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fb } from '../../lib/firebase';
-import uuid from 'react-uuid';
 import GroceryCard from '../GroceryCard';
-import AddItem from '../AddItem';
 
 const GroceryContainer = () => {
   const [grocery, setGrocery] = useState([]);
@@ -21,15 +19,6 @@ const GroceryContainer = () => {
       });
       setGrocery(groceries);
     });
-  };
-
-  const postItem = (item) => {
-    ref
-      .doc(item.id)
-      .set(item)
-      .catch((err) => {
-        console.error(err);
-      });
   };
 
   return (
