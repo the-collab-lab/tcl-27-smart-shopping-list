@@ -1,5 +1,4 @@
 import React from 'react';
-import GroceryContainer from './containers/GroceryContainer';
 import { fb } from '../lib/firebase';
 import uuid from 'react-uuid';
 
@@ -17,20 +16,39 @@ class AddItem extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    const ref = fb.firestore().collection('groceries').add({
-      itemName: this.state.itemName,
-      frequency: this.state.frequency,
-      lastPurchase: this.state.lastPurchase,
-      id: uuid(),
-      userToken: 'josef heron mudd',
+    const groceriesRef = fb.firestore().collection('groceries');
+
+    groceriesRef.get().then((item) => {
+      const items = item.docs.map((doc) =>
+        doc
+          .data()
+          .itemName.toLowerCase()
+          .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, ''),
+      );
+      console.log(items);
+
+      const userInput = this.state.itemName
+        .toLowerCase()
+        .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, '');
+      if (items.includes(userInput)) {
+        alert('ITEM ALREADY EXISTS!');
+      } else {
+        groceriesRef.add({
+          itemName: this.state.itemName,
+          frequency: this.state.frequency,
+          lastPurchase: this.state.lastPurchase,
+          id: uuid(),
+          userToken: 'josef heron mudd',
+        });
+        alert('Successfully added ' + this.state.itemName);
+      }
     });
-    alert('Successfully added ' + this.state.itemName);
   };
+
   changeHandler = (event) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({ [nam]: val });
+    this.setState({ [event.target.name]: event.target.value });
   };
+
   render() {
     return (
       <form onSubmit={this.submitHandler}>

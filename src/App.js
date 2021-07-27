@@ -17,7 +17,7 @@ function App() {
     if (localStorage.getItem('token')) {
       return setLoggedIn(true);
     }
-  });
+  }, []);
 
   const handleClick = () => {
     const token = getToken();
