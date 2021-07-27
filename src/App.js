@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="App">
-      <Home />
+      <Home setLoggedIn={setLoggedIn} />
       <button onClick={handleClick}>Create List...</button>
       <BottomNav />
 
@@ -36,7 +36,12 @@ function App() {
           {loggedIn && <Redirect to="/list" />}
         </Route>
         <Route exact path="/list" component={GroceryContainer}></Route>
-        <Route exact path="/add-an-item" component={AddItem}></Route>
+        <Route
+          exact
+          path="/add-an-item"
+          component={AddItem}
+          userToken={localStorage.getItem('token')}
+        ></Route>
       </Switch>
     </div>
   );

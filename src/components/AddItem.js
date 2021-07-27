@@ -1,7 +1,7 @@
 import React from 'react';
 import GroceryContainer from './containers/GroceryContainer';
 import { fb } from '../lib/firebase';
-import uuid from 'react-uuid';
+import * as admin from 'firebase-admin';
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -17,13 +17,30 @@ class AddItem extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    const ref = fb.firestore().collection('groceries').add({
-      itemName: this.state.itemName,
-      frequency: this.state.frequency,
-      lastPurchase: this.state.lastPurchase,
-      id: uuid(),
-      userToken: 'josef heron mudd',
-    });
+    if (localStorage) {
+      const ref = fb
+        .firestore()
+        .collection('groceries')
+        .doc(localStorage.getItem('token'))
+        .collection('items')
+        .doc(this.state.itemName)
+        .set(
+          {
+            itemName: this.state.itemName,
+            frequency: this.state.frequency,
+            lastPurchase: this.state.lastPurchase,
+          },
+          { merge: true },
+        );
+    } else {
+    }
+
+    // const itemUpdate = await ref.update ({
+
+    //     itemName: this.state.itemName,
+    //     frequency: this.state.frequency,
+    //     lastPurchase: this.state.lastPurchase
+    // });
     alert('Successfully added ' + this.state.itemName);
   };
   changeHandler = (event) => {

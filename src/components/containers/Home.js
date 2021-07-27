@@ -1,22 +1,47 @@
 import React, { Component } from 'react';
+import { fb } from '../../lib/firebase';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       token: '',
+      tokens: [],
     };
   }
+
+  ref = fb.firestore().collection('groceries');
+
+  getTokens = () => {
+    const tokens = [];
+    this.ref.onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((item) => {
+        tokens.push(item.data().userToken);
+      });
+      this.setState({
+        tokens: tokens,
+      });
+    });
+  };
 
   handleChange = (e) => {
     this.setState({
       token: e.target.value,
     });
+    this.getTokens();
   };
 
   handleClick = (e) => {
     e.preventDefault();
-    console.log(this.state.token);
+    if (this.state.tokens.includes(this.state.token)) {
+      localStorage.setItem('token', this.state.token);
+      this.props.setLoggedIn(true);
+      this.setState({
+        token: '',
+      });
+    } else {
+      alert('Sorry, token not found. Try again or create a new list.');
+    }
   };
 
   render() {
