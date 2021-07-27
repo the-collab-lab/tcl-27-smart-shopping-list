@@ -1,7 +1,6 @@
 import React from 'react';
 import GroceryContainer from './containers/GroceryContainer';
 import { fb } from '../lib/firebase';
-import * as admin from 'firebase-admin';
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -22,6 +21,14 @@ class AddItem extends React.Component {
         .firestore()
         .collection('groceries')
         .doc(localStorage.getItem('token'))
+        .set({
+          userToken: localStorage.getItem('token'),
+        });
+
+      const updateItems = fb
+        .firestore()
+        .collection('groceries')
+        .doc(localStorage.getItem('token'))
         .collection('items')
         .doc(this.state.itemName)
         .set(
@@ -35,12 +42,6 @@ class AddItem extends React.Component {
     } else {
     }
 
-    // const itemUpdate = await ref.update ({
-
-    //     itemName: this.state.itemName,
-    //     frequency: this.state.frequency,
-    //     lastPurchase: this.state.lastPurchase
-    // });
     alert('Successfully added ' + this.state.itemName);
   };
   changeHandler = (event) => {
