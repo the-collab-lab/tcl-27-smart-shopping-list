@@ -2,7 +2,6 @@ import React from 'react';
 import { fb } from '../lib/firebase';
 import uuid from 'react-uuid';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const initialState = {
   itemName: '',
@@ -126,26 +125,11 @@ class AddItem extends React.Component {
 
         <p>Last purchase:</p>
         <DatePicker
+          placeholderText="Click to select a date"
           selected={this.state.lastPurchase}
           onChange={(date) => this.setState({ lastPurchase: date })}
-          popperClassName="some-custom-class"
-          popperPlacement="top-end"
-          popperModifiers={[
-            {
-              name: 'offset',
-              options: {
-                offset: [10, 10],
-              },
-            },
-            {
-              name: 'preventOverflow',
-              options: {
-                rootBoundary: 'viewport',
-                tether: false,
-                altAxis: true,
-              },
-            },
-          ]}
+          isClearable
+          popperPlacement="bottom"
         />
 
         <br />
