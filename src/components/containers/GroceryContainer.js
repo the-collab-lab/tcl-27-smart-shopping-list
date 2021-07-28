@@ -17,6 +17,7 @@ const GroceryContainer = () => {
       querySnapshot.forEach((item) => {
         groceries.push(item.data());
       });
+      console.log(groceries);
       setGrocery(groceries);
     });
   };

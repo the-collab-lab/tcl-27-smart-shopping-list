@@ -5,7 +5,7 @@ const GroceryCard = ({ item }) => {
     <div>
       <p>ID: {item.id}</p>
       <p>ITEM: {item.itemName}</p>
-      <p>LAST PURCHASE DATE: {item.lastPurchase}</p>
+      {/* <p>LAST PURCHASE DATE: {item.lastPurchase.toDate().toDateString()}</p> */}
       <p>FREQUENCY: {item.frequency}</p>
       <p>USER TOKEN: {item.userToken}</p>
     </div>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { fb } from '../lib/firebase';
 import uuid from 'react-uuid';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const initialState = {
   itemName: '',
   frequency: '',
-  lastPurchase: '',
+  lastPurchase: null,
   id: '',
   userToken: '',
   itemNameError: '',
@@ -34,6 +36,7 @@ class AddItem extends React.Component {
       this.setState({ itemNameError, frequencyError });
       return false;
     }
+
     return true;
   };
 
@@ -85,18 +88,22 @@ class AddItem extends React.Component {
           name="itemName"
           onChange={this.changeHandler}
           value={this.state.itemName}
+          placeholder="Item name..."
         />
         <div style={{ fontsize: 12, color: 'red' }}>
           {this.state.itemNameError}
         </div>
         <p>When will you need to buy this item next?</p>
+        <div style={{ fontsize: 12, color: 'red' }}>
+          {this.state.frequencyError}
+        </div>
         <div>
           <p>Soon</p>
           <input
             type="radio"
             name="frequency"
             value="7"
-            checked={this.state.frequency == '7'}
+            checked={this.state.frequency === '7'}
             onChange={this.changeHandler}
           />
           <p>Kind of soon</p>
@@ -104,7 +111,7 @@ class AddItem extends React.Component {
             type="radio"
             name="frequency"
             value="14"
-            checked={this.state.frequency == '14'}
+            checked={this.state.frequency === '14'}
             onChange={this.changeHandler}
           />
           <p>Not Soon</p>
@@ -112,20 +119,36 @@ class AddItem extends React.Component {
             type="radio"
             name="frequency"
             value="30"
-            checked={this.state.frequency == '30'}
+            checked={this.state.frequency === '30'}
             onChange={this.changeHandler}
           />
         </div>
-        <div style={{ fontsize: 12, color: 'red' }}>
-          {this.state.frequencyError}
-        </div>
+
         <p>Last purchase:</p>
-        <input
-          type="datetime"
-          name="lastPurchase"
-          onChange={this.changeHandler}
-          value={this.state.lastPurchase}
+        <DatePicker
+          selected={this.state.lastPurchase}
+          onChange={(date) => this.setState({ lastPurchase: date })}
+          popperClassName="some-custom-class"
+          popperPlacement="top-end"
+          popperModifiers={[
+            {
+              name: 'offset',
+              options: {
+                offset: [10, 10],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                rootBoundary: 'viewport',
+                tether: false,
+                altAxis: true,
+              },
+            },
+          ]}
         />
+
+        <br />
         <br />
         <button type="submit">Submit</button>
       </form>
