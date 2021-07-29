@@ -47,7 +47,7 @@ function App() {
           {loggedIn && <Redirect to="/list" />}
         </Route>
         <Route exact path="/list" component={GroceryContainer}>
-          {!loggedIn && <Redirect exact path="/" />}
+          {!loggedIn && <Redirect to="/" />}
         </Route>
         <Route exact path="/add-an-item" component={AddItem}></Route>
       </Switch>
