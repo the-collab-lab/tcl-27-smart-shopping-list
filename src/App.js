@@ -9,6 +9,7 @@ import Home from './components/containers/Home';
 import GroceryContainer from './components/containers/GroceryContainer';
 import AddItem from './components/AddItem';
 import BottomNav from './components/BottomNav';
+import { fb } from './lib/firebase';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -23,6 +24,17 @@ function App() {
     const token = getToken();
     localStorage.setItem('token', token);
     setLoggedIn(true);
+
+    if (localStorage) {
+      const ref = fb
+        .firestore()
+        .collection('groceries')
+        .doc(localStorage.getItem('token'))
+        .set({
+          userToken: localStorage.getItem('token'),
+        });
+    } else {
+    }
   };
 
   return (
