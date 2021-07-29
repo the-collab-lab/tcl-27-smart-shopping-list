@@ -42,18 +42,14 @@ function App() {
       <Home setLoggedIn={setLoggedIn} />
       <button onClick={handleClick}>Create List...</button>
       <BottomNav />
-
       <Switch>
         <Route exact path="/">
           {loggedIn && <Redirect to="/list" />}
         </Route>
-        <Route exact path="/list" component={GroceryContainer}></Route>
-        <Route
-          exact
-          path="/add-an-item"
-          component={AddItem}
-          userToken={localStorage.getItem('token')}
-        ></Route>
+        <Route exact path="/list" component={GroceryContainer}>
+          {!loggedIn && <Redirect exact path="/" />}
+        </Route>
+        <Route exact path="/add-an-item" component={AddItem}></Route>
       </Switch>
     </div>
   );

@@ -43,7 +43,13 @@ class AddItem extends React.Component {
     }
 
     alert('Successfully added ' + this.state.itemName);
+    this.setState({
+      itemName: '',
+      frequency: '',
+      lastPurchase: null,
+    });
   };
+
   changeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
@@ -54,7 +60,12 @@ class AddItem extends React.Component {
       <form onSubmit={this.submitHandler}>
         <h1>Item </h1>
         <p>Please enter an item:</p>
-        <input type="text" name="itemName" onChange={this.changeHandler} />
+        <input
+          type="text"
+          name="itemName"
+          value={this.state.itemName}
+          onChange={this.changeHandler}
+        />
         <p>When will you need to buy this item next?</p>
         <div>
           <p>Soon</p>
