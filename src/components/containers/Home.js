@@ -12,6 +12,10 @@ class Home extends Component {
 
   ref = fb.firestore().collection('groceries');
 
+  componentDidMount() {
+    this.getTokens();
+  }
+
   getTokens = () => {
     const tokens = [];
     this.ref.onSnapshot((querySnapshot) => {
@@ -28,7 +32,6 @@ class Home extends Component {
     this.setState({
       token: e.target.value,
     });
-    this.getTokens();
   };
 
   handleClick = (e) => {
