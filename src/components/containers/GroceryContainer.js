@@ -5,7 +5,11 @@ import GroceryCard from '../GroceryCard';
 const GroceryContainer = () => {
   const [grocery, setGrocery] = useState([]);
 
-  const ref = fb.firestore().collection('groceries');
+  const ref = fb
+    .firestore()
+    .collection('groceries')
+    .doc(localStorage.getItem('token'))
+    .collection('items');
 
   useEffect(() => {
     getGroceries();
@@ -27,8 +31,8 @@ const GroceryContainer = () => {
       GroceryContainer
       <ul>
         {grocery.map((g) => (
-          <li key={g.id}>
-            <GroceryCard item={g} />
+          <li key={g.itemName}>
+            <GroceryCard item={g} userToken={localStorage.getItem('token')} />
           </li>
         ))}
       </ul>

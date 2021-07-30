@@ -41,7 +41,11 @@ class AddItem extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    const groceriesRef = fb.firestore().collection('groceries');
+    const groceriesRef = fb
+      .firestore()
+      .collection('groceries')
+      .doc(localStorage.getItem('token'))
+      .collection('items');
     const isValid = this.validate();
 
     if (isValid) {
