@@ -25,7 +25,7 @@ function App() {
     localStorage.setItem('token', token);
     setLoggedIn(true);
 
-    if (localStorage) {
+    if (localStorage.getItem('token')) {
       const ref = fb
         .firestore()
         .collection('groceries')
