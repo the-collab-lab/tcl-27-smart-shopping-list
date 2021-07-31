@@ -1,6 +1,5 @@
 import React from 'react';
 import { fb } from '../lib/firebase';
-import uuid from 'react-uuid';
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -14,37 +13,71 @@ class AddItem extends React.Component {
     };
   }
 
-  submitHandler = (event) => {
-    event.preventDefault();
+  // CHECKS FOR DUPLICATE ITEMS
+  //  async - CONVERTS FUNCTION INTO AN ASYNCRONOUS FUNCTION
+  isDuplicateItem = async () => {
     const groceriesRef = fb
       .firestore()
       .collection('groceries')
       .doc(localStorage.getItem('token'))
       .collection('items');
 
-    groceriesRef.get().then((item) => {
+    // GETS GROCERIES AND FORMATS ITEMS FROM DB FOR COMPARISON
+    //  await - PAUSES CODE UNTIL THE PROMISE FULFILLS
+    return await groceriesRef.get().then((item) => {
       const items = item.docs.map((doc) =>
         doc
           .data()
           .itemName.toLowerCase()
           .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, ''),
       );
-      console.log(items);
 
       const userInput = this.state.itemName
         .toLowerCase()
         .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, '');
-      if (items.includes(userInput)) {
-        alert('ITEM ALREADY EXISTS!');
+
+      return items.includes(userInput);
+    });
+  };
+
+  submitHandler = (event) => {
+    event.preventDefault();
+
+    // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
+    this.isDuplicateItem().then((duplicate) => {
+      if (localStorage && !duplicate) {
+        const ref = fb
+          .firestore()
+          .collection('groceries')
+          .doc(localStorage.getItem('token'))
+          .set({
+            userToken: localStorage.getItem('token'),
+          });
+
+        const updateItems = fb
+          .firestore()
+          .collection('groceries')
+          .doc(localStorage.getItem('token'))
+          .collection('items')
+          .doc(this.state.itemName)
+          .set(
+            {
+              itemName: this.state.itemName,
+              frequency: this.state.frequency,
+              lastPurchase: this.state.lastPurchase,
+            },
+            { merge: true },
+          )
+          .then(() => {
+            alert('Successfully added ' + this.state.itemName);
+            this.setState({
+              itemName: '',
+              frequency: '',
+              lastPurchase: null,
+            });
+          });
       } else {
-        groceriesRef.add({
-          itemName: this.state.itemName,
-          frequency: this.state.frequency,
-          lastPurchase: this.state.lastPurchase,
-          id: uuid(),
-          userToken: 'josef heron mudd',
-        });
-        alert('Successfully added ' + this.state.itemName);
+        alert('ITEM ALREADY EXISTS!');
       }
     });
   };
@@ -58,7 +91,12 @@ class AddItem extends React.Component {
       <form onSubmit={this.submitHandler}>
         <h1>Item </h1>
         <p>Please enter an item:</p>
-        <input type="text" name="itemName" onChange={this.changeHandler} />
+        <input
+          type="text"
+          name="itemName"
+          value={this.state.itemName}
+          onChange={this.changeHandler}
+        />
         <p>When will you need to buy this item next?</p>
         <div>
           <p>Soon</p>
