@@ -29,12 +29,12 @@ class AddItem extends React.Component {
         doc
           .data()
           .itemName.toLowerCase()
-          .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, ''),
+          .replace(/[^a-zA-Z]/g, ''),
       );
 
       const userInput = this.state.itemName
         .toLowerCase()
-        .replace(/[ *.,@#!$%&;:{}=\-_`~()]/g, '');
+        .replace(/[^a-zA-Z]/g, '');
 
       return items.includes(userInput);
     });
