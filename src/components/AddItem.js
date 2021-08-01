@@ -21,20 +21,16 @@ class AddItem extends React.Component {
   validate = () => {
     let itemNameError = '';
     let frequencyError = '';
-
     if (!this.state.itemName) {
       itemNameError = 'Name needs to exist';
     }
-
     if (!this.state.frequency) {
       frequencyError = 'Please pick when you will need to buy next';
     }
-
     if (itemNameError || frequencyError) {
       this.setState({ itemNameError, frequencyError });
       return false;
     }
-
     return true;
   };
 
@@ -67,44 +63,45 @@ class AddItem extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-
-    // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
-    this.isDuplicateItem().then((duplicate) => {
-      if (localStorage && !duplicate) {
-        const ref = fb
-          .firestore()
-          .collection('groceries')
-          .doc(localStorage.getItem('token'))
-          .set({
-            userToken: localStorage.getItem('token'),
-          });
-
-        const updateItems = fb
-          .firestore()
-          .collection('groceries')
-          .doc(localStorage.getItem('token'))
-          .collection('items')
-          .doc(this.state.itemName)
-          .set(
-            {
-              itemName: this.state.itemName,
-              frequency: this.state.frequency,
-              lastPurchase: this.state.lastPurchase,
-            },
-            { merge: true },
-          )
-          .then(() => {
-            alert('Successfully added ' + this.state.itemName);
-            this.setState({
-              itemName: '',
-              frequency: '',
-              lastPurchase: null,
+    if (this.validate()) {
+      // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
+      this.isDuplicateItem().then((duplicate) => {
+        if (localStorage && !duplicate) {
+          const ref = fb
+            .firestore()
+            .collection('groceries')
+            .doc(localStorage.getItem('token'))
+            .set({
+              userToken: localStorage.getItem('token'),
             });
-          });
-      } else {
-        alert('ITEM ALREADY EXISTS!');
-      }
-    });
+
+          const updateItems = fb
+            .firestore()
+            .collection('groceries')
+            .doc(localStorage.getItem('token'))
+            .collection('items')
+            .doc(this.state.itemName)
+            .set(
+              {
+                itemName: this.state.itemName,
+                frequency: this.state.frequency,
+                lastPurchase: this.state.lastPurchase,
+              },
+              { merge: true },
+            )
+            .then(() => {
+              alert('Successfully added ' + this.state.itemName);
+              this.setState({
+                itemName: '',
+                frequency: '',
+                lastPurchase: null,
+              });
+            });
+        } else {
+          alert('ITEM ALREADY EXISTS!');
+        }
+      });
+    }
   };
 
   changeHandler = (event) => {
@@ -165,8 +162,6 @@ class AddItem extends React.Component {
           isClearable
           popperPlacement="bottom"
         />
-
-        <br />
         <br />
         <button type="submit">Submit</button>
       </form>
