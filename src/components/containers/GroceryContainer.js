@@ -12,7 +12,13 @@ const GroceryContainer = () => {
     .collection('items');
 
   useEffect(() => {
-    getGroceries();
+    let isMounted = true;
+    if (isMounted) {
+      getGroceries();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const getGroceries = () => {
@@ -32,7 +38,7 @@ const GroceryContainer = () => {
       <ul>
         {grocery.map((g) => (
           <li key={g.itemName}>
-            <GroceryCard item={g} userToken={localStorage.getItem('token')} />
+            <GroceryCard item={g} />
           </li>
         ))}
       </ul>
