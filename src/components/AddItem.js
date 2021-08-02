@@ -95,6 +95,8 @@ class AddItem extends React.Component {
                 itemName: '',
                 frequency: '',
                 lastPurchase: null,
+                itemNameError: '',
+                frequencyError: '',
               });
             });
         } else {
