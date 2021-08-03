@@ -1,17 +1,38 @@
 import React from 'react';
 import { fb } from '../lib/firebase';
+import DatePicker from 'react-datepicker';
+
+const initialState = {
+  itemName: '',
+  frequency: '',
+  lastPurchase: null,
+  id: '',
+  userToken: '',
+  itemNameError: '',
+  frequencyError: '',
+};
 
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      itemName: '',
-      frequency: '',
-      lastPurchase: null,
-      id: '',
-      userToken: '',
-    };
+    this.state = initialState;
   }
+
+  validate = () => {
+    let itemNameError = '';
+    let frequencyError = '';
+    if (!this.state.itemName) {
+      itemNameError = 'Name needs to exist';
+    }
+    if (!this.state.frequency) {
+      frequencyError = 'Please pick when you will need to buy next';
+    }
+    if (itemNameError || frequencyError) {
+      this.setState({ itemNameError, frequencyError });
+      return false;
+    }
+    return true;
+  };
 
   // CHECKS FOR DUPLICATE ITEMS
   //  async - CONVERTS FUNCTION INTO AN ASYNCRONOUS FUNCTION
@@ -42,45 +63,48 @@ class AddItem extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-
-    // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
-    this.isDuplicateItem().then((duplicate) => {
-      if (localStorage && !duplicate) {
-        const ref = fb
-          .firestore()
-          .collection('groceries')
-          .doc(localStorage.getItem('token'))
-          .set({
-            userToken: localStorage.getItem('token'),
-          });
-
-        const updateItems = fb
-          .firestore()
-          .collection('groceries')
-          .doc(localStorage.getItem('token'))
-          .collection('items')
-          .doc(this.state.itemName)
-          .set(
-            {
-              itemName: this.state.itemName,
-              frequency: this.state.frequency,
-              lastPurchase: this.state.lastPurchase,
-              purchased: false,
-            },
-            { merge: true },
-          )
-          .then(() => {
-            alert('Successfully added ' + this.state.itemName);
-            this.setState({
-              itemName: '',
-              frequency: '',
-              lastPurchase: null,
+    if (this.validate()) {
+      // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
+      this.isDuplicateItem().then((duplicate) => {
+        if (localStorage && !duplicate) {
+          const ref = fb
+            .firestore()
+            .collection('groceries')
+            .doc(localStorage.getItem('token'))
+            .set({
+              userToken: localStorage.getItem('token'),
             });
-          });
-      } else {
-        alert('ITEM ALREADY EXISTS!');
-      }
-    });
+
+          const updateItems = fb
+            .firestore()
+            .collection('groceries')
+            .doc(localStorage.getItem('token'))
+            .collection('items')
+            .doc(this.state.itemName)
+            .set(
+              {
+                itemName: this.state.itemName,
+                frequency: this.state.frequency,
+                lastPurchase: this.state.lastPurchase,
+                purchased: false,
+              },
+              { merge: true },
+            )
+            .then(() => {
+              alert('Successfully added ' + this.state.itemName);
+              this.setState({
+                itemName: '',
+                frequency: '',
+                lastPurchase: null,
+                itemNameError: '',
+                frequencyError: '',
+              });
+            });
+        } else {
+          alert('ITEM ALREADY EXISTS!');
+        }
+      });
+    }
   };
 
   changeHandler = (event) => {
@@ -95,16 +119,24 @@ class AddItem extends React.Component {
         <input
           type="text"
           name="itemName"
-          value={this.state.itemName}
           onChange={this.changeHandler}
+          value={this.state.itemName}
+          placeholder="Item name..."
         />
+        <div style={{ fontsize: 12, color: 'red' }}>
+          {this.state.itemNameError}
+        </div>
         <p>When will you need to buy this item next?</p>
+        <div style={{ fontsize: 12, color: 'red' }}>
+          {this.state.frequencyError}
+        </div>
         <div>
           <p>Soon</p>
           <input
             type="radio"
             name="frequency"
             value="7"
+            checked={this.state.frequency === '7'}
             onChange={this.changeHandler}
           />
           <p>Kind of soon</p>
@@ -112,6 +144,7 @@ class AddItem extends React.Component {
             type="radio"
             name="frequency"
             value="14"
+            checked={this.state.frequency === '14'}
             onChange={this.changeHandler}
           />
           <p>Not Soon</p>
@@ -119,14 +152,18 @@ class AddItem extends React.Component {
             type="radio"
             name="frequency"
             value="30"
+            checked={this.state.frequency === '30'}
             onChange={this.changeHandler}
           />
         </div>
+
         <p>Last purchase:</p>
-        <input
-          type="datetime"
-          name="lastPurchase"
-          onChange={this.changeHandler}
+        <DatePicker
+          placeholderText="Click to select a date"
+          selected={this.state.lastPurchase}
+          onChange={(date) => this.setState({ lastPurchase: date })}
+          isClearable
+          popperPlacement="bottom"
         />
         <br />
         <button type="submit">Submit</button>
