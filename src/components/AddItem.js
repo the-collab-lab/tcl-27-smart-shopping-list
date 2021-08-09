@@ -86,6 +86,7 @@ class AddItem extends React.Component {
                 itemName: this.state.itemName,
                 frequency: this.state.frequency,
                 lastPurchase: this.state.lastPurchase,
+                purchased: false,
               },
               { merge: true },
             )
