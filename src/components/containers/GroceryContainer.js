@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fb } from '../../lib/firebase';
 import GroceryCard from '../GroceryCard';
+import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
 
 const GroceryContainer = () => {
@@ -62,6 +63,7 @@ const GroceryContainer = () => {
         <button type="submit" onClick={handleClick}>
           Add an item
         </button>
+        <BottomNav />
       </div>
     );
   } else {
@@ -91,6 +93,7 @@ const GroceryContainer = () => {
               </li>
             ))}
         </ul>
+        <BottomNav />
       </div>
     );
   }

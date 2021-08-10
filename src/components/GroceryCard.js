@@ -6,7 +6,13 @@ const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
 
   useEffect(() => {
-    purchasedTimeLimit();
+    let isMounted = true;
+    if (isMounted) {
+      purchasedTimeLimit();
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const ref = fb
