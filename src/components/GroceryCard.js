@@ -50,7 +50,7 @@ const GroceryCard = ({ item }) => {
         }
 
         const purchaseEstimate = calculateEstimate(
-          item.purchaseFrequency,
+          item.estimatedFrequency,
           purchaseIntervalInDays,
           item.numberOfPurchases,
         );
