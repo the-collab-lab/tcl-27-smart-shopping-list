@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { fb } from '../lib/firebase';
 import firebase from 'firebase/app';
+import React, { useEffect, useState } from 'react';
+import calculateEstimate from '../lib/estimates';
+import { fb } from '../lib/firebase';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
@@ -35,12 +36,37 @@ const GroceryCard = ({ item }) => {
   const purchasedTimeLimit = () => {
     if (item.checkedTime) {
       const timeSincePurchased = new Date() - item.checkedTime.toDate();
-      const oneFullDay = 24 * 60 * 60 * 1000;
-      if (timeSincePurchased > oneFullDay) {
+      const oneFullDayInMS = 24 * 60 * 60 * 1000;
+      if (timeSincePurchased > oneFullDayInMS) {
+        let purchaseIntervalInDays;
+
+        if (item.lastPurchase) {
+          purchaseIntervalInDays = Math.round(
+            (item.checkedTime.toDate() - item.lastPurchase.toDate()) /
+              oneFullDayInMS,
+          );
+        } else {
+          purchaseIntervalInDays = 1;
+        }
+
+        const purchaseEstimate = calculateEstimate(
+          item.estimatedFrequency,
+          purchaseIntervalInDays,
+          item.numberOfPurchases,
+        );
+        const nextPurchaseDate = firebase.firestore.Timestamp.fromMillis(
+          item.checkedTime.toMillis() + purchaseEstimate * oneFullDayInMS,
+        );
+        const numberOfPurchases = item.numberOfPurchases + 1;
+
         ref.update({
           purchased: false,
           lastPurchase: item.checkedTime,
           checkedTime: firebase.firestore.FieldValue.delete(),
+          actualPurchaseInterval: purchaseIntervalInDays,
+          numberOfPurchases: numberOfPurchases,
+          estimatedFrequency: purchaseEstimate,
+          nextPurchaseDate: nextPurchaseDate,
         });
       } else {
         setPurchased(true);
@@ -65,7 +91,12 @@ const GroceryCard = ({ item }) => {
         LAST PURCHASE DATE:{' '}
         {item.lastPurchase ? item.lastPurchase.toDate().toDateString() : 'NA'}
       </p>
-      <p>FREQUENCY: {item.frequency}</p>
+      <p>
+        NEXT ESTIMATED PURCHASE DATE:{' '}
+        {item.nextPurchaseDate
+          ? item.nextPurchaseDate.toDate().toDateString()
+          : ''}
+      </p>
     </div>
   );
 };

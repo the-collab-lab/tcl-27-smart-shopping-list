@@ -67,6 +67,11 @@ class AddItem extends React.Component {
       // USING .then TO GET A RETURN VALUE FROM FULFILLED PROMISE
       this.isDuplicateItem().then((duplicate) => {
         if (localStorage && !duplicate) {
+          let numberOfPurchases = 0;
+          if (this.state.lastPurchase) {
+            numberOfPurchases = 1;
+          }
+
           const ref = fb
             .firestore()
             .collection('groceries')
@@ -84,9 +89,10 @@ class AddItem extends React.Component {
             .set(
               {
                 itemName: this.state.itemName,
-                frequency: this.state.frequency,
+                estimatedFrequency: Number(this.state.frequency),
                 lastPurchase: this.state.lastPurchase,
                 purchased: false,
+                numberOfPurchases: numberOfPurchases,
               },
               { merge: true },
             )
