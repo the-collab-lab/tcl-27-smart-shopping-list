@@ -1,6 +1,7 @@
 import React from 'react';
 import { fb } from '../lib/firebase';
 import DatePicker from 'react-datepicker';
+import BottomNav from './BottomNav';
 
 const initialState = {
   itemName: '',
@@ -173,6 +174,7 @@ class AddItem extends React.Component {
         />
         <br />
         <button type="submit">Submit</button>
+        <BottomNav />
       </form>
     );
   }

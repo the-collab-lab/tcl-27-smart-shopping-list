@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { fb } from '../../lib/firebase';
 import GroceryCard from '../GroceryCard';
+import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
 
 const GroceryContainer = () => {
   const [grocery, setGrocery] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState('');
+  const [resetDisplay, setResetDisplay] = useState('none');
   const history = useHistory();
 
   const ref = fb
@@ -30,6 +34,7 @@ const GroceryContainer = () => {
         groceries.push(item.data());
       });
       setGrocery(groceries);
+      setLoading(false);
     });
   };
 
@@ -37,7 +42,20 @@ const GroceryContainer = () => {
     history.push('/add-an-item');
   };
 
-  if (grocery.length === 0) {
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    e.target.value ? setResetDisplay('inline') : setResetDisplay('none');
+  };
+
+  const handleResetClick = () => {
+    setInput('');
+    setResetDisplay('none');
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (grocery.length === 0 && !loading) {
     return (
       <div>
         <h1>Smart Shopping List</h1>
@@ -45,19 +63,37 @@ const GroceryContainer = () => {
         <button type="submit" onClick={handleClick}>
           Add an item
         </button>
+        <BottomNav />
       </div>
     );
   } else {
     return (
       <div>
         <h1>Smart Shopping List</h1>
+        <label htmlFor="search-field">
+          <input
+            id="search-field"
+            type="text"
+            onChange={handleChange}
+            value={input}
+            placeholder="Search Item..."
+          />
+        </label>
+        <button onClick={handleResetClick} style={{ display: resetDisplay }}>
+          X
+        </button>
         <ul>
-          {grocery.map((g) => (
-            <li key={g.itemName}>
-              <GroceryCard item={g} />
-            </li>
-          ))}
+          {grocery
+            .filter((g) =>
+              g.itemName.toLowerCase().includes(input.toLowerCase()),
+            )
+            .map((g) => (
+              <li key={g.itemName}>
+                <GroceryCard item={g} />
+              </li>
+            ))}
         </ul>
+        <BottomNav />
       </div>
     );
   }

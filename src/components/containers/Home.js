@@ -50,6 +50,8 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <button onClick={this.props.handleClick}>Create List...</button>
+        <br />
         <label htmlFor="token">Enter token:</label>
         <input
           type="text"
