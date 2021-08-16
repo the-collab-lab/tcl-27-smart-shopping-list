@@ -7,17 +7,47 @@ const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
 
   const oneFullDayInMS = 24 * 60 * 60 * 1000;
-  // const lastPDToEstimatePD = () => {
-  //   if (item.lastPurchase) {
-  //     return (item.nextPurchaseDate.toDate() - item.lastPurchase.toDate()) / oneFullDayInMS }
-  // }
+  let lastPDToEstimatePD;
+  let timeSinceLastPurchase;
+  let daysUntilPurchase = Math.round(
+    (item.nextPurchaseDate.toDate() - new Date()) / oneFullDayInMS,
+  );
 
-  // console.log('LastPD to NextPD: ' + lastPDToEstimatePD())
+  const durations = () => {
+    if (item.lastPurchase) {
+      lastPDToEstimatePD = Math.round(
+        (item.nextPurchaseDate.toDate() - item.lastPurchase.toDate()) /
+          oneFullDayInMS,
+      );
+
+      timeSinceLastPurchase = Math.round(
+        (new Date() - item.lastPurchase.toDate()) / oneFullDayInMS,
+      );
+
+      console.log('LastPD to NextPD: ' + lastPDToEstimatePD);
+      console.log('Time since last purchase: ' + timeSinceLastPurchase);
+    } else {
+      lastPDToEstimatePD = Math.round(
+        (item.nextPurchaseDate.toDate() - item.dateAdded.toDate()) /
+          oneFullDayInMS,
+      );
+
+      timeSinceLastPurchase = Math.round(
+        (new Date() - item.dateAdded.toDate()) / oneFullDayInMS,
+      );
+
+      console.log('LastPD to NextPD: ' + lastPDToEstimatePD);
+      console.log('Time since last purchase: ' + timeSinceLastPurchase);
+    }
+  };
+
+  console.log('daysUntilPurchase: ' + daysUntilPurchase);
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       purchasedTimeLimit();
+      durations();
     }
     return () => {
       isMounted = false;
