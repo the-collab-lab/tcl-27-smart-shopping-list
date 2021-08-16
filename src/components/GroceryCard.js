@@ -6,6 +6,14 @@ import { fb } from '../lib/firebase';
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
 
+  const oneFullDayInMS = 24 * 60 * 60 * 1000;
+  // const lastPDToEstimatePD = () => {
+  //   if (item.lastPurchase) {
+  //     return (item.nextPurchaseDate.toDate() - item.lastPurchase.toDate()) / oneFullDayInMS }
+  // }
+
+  // console.log('LastPD to NextPD: ' + lastPDToEstimatePD())
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -22,6 +30,16 @@ const GroceryCard = ({ item }) => {
     .doc(localStorage.getItem('token'))
     .collection('items')
     .doc(item.itemName);
+
+  // const setTimeTillNextPurchase = () => {
+  //   if (x < 7) {
+  //     // soon
+  //   } else if ( x >= 7 && x <= 30) {
+  //     // kind of soon
+  //   } else if ( x > 30) {
+  //     // Not Soon
+  //   }
+  // }
 
   const updatePurchased = () => {
     if (purchased) {
@@ -42,7 +60,7 @@ const GroceryCard = ({ item }) => {
   const purchasedTimeLimit = () => {
     if (item.checkedTime) {
       const timeSincePurchased = new Date() - item.checkedTime.toDate();
-      const oneFullDayInMS = 24 * 60 * 60 * 1000;
+
       if (timeSincePurchased > oneFullDayInMS) {
         let purchaseIntervalInDays;
 
