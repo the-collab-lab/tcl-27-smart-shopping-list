@@ -37,6 +37,13 @@ const GroceryContainer = () => {
     return a.nextPurchaseDate > b.nextPurchaseDate ? 1 : -1;
   };
 
+  const sortByInactive = (a, b) => {
+    if (a.inactive && b.inactive === true) {
+      return a.itemName > b.itemName ? 1 : -1;
+    }
+    if (a.inactive < b.inactive) return -1;
+  };
+
   const getGroceries = () => {
     ref.onSnapshot((querySnapshot) => {
       const groceries = [];
@@ -94,6 +101,7 @@ const GroceryContainer = () => {
         </button>
         <ul>
           {grocery
+            .sort(sortByInactive)
             .filter((g) =>
               g.itemName.toLowerCase().includes(input.toLowerCase()),
             )

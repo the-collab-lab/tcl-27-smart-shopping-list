@@ -5,49 +5,15 @@ import { fb } from '../lib/firebase';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
-
-  const oneFullDayInMS = 24 * 60 * 60 * 1000;
-  let lastPDToEstimatePD;
-  let timeSinceLastPurchase;
-  let daysUntilPurchase = Math.round(
-    (item.nextPurchaseDate.toDate() - new Date()) / oneFullDayInMS,
-  );
-
-  const durations = () => {
-    if (item.lastPurchase) {
-      lastPDToEstimatePD = Math.round(
-        (item.nextPurchaseDate.toDate() - item.lastPurchase.toDate()) /
-          oneFullDayInMS,
-      );
-
-      timeSinceLastPurchase = Math.round(
-        (new Date() - item.lastPurchase.toDate()) / oneFullDayInMS,
-      );
-
-      console.log('LastPD to NextPD: ' + lastPDToEstimatePD);
-      console.log('Time since last purchase: ' + timeSinceLastPurchase);
-    } else {
-      lastPDToEstimatePD = Math.round(
-        (item.nextPurchaseDate.toDate() - item.dateAdded.toDate()) /
-          oneFullDayInMS,
-      );
-
-      timeSinceLastPurchase = Math.round(
-        (new Date() - item.dateAdded.toDate()) / oneFullDayInMS,
-      );
-
-      console.log('LastPD to NextPD: ' + lastPDToEstimatePD);
-      console.log('Time since last purchase: ' + timeSinceLastPurchase);
-    }
-  };
-
-  console.log('daysUntilPurchase: ' + daysUntilPurchase);
+  const [timeFrame, setTimeFrame] = useState('');
+  const [color, setColor] = useState('white');
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       purchasedTimeLimit();
-      durations();
+      setTimeTillNextPurchase();
+      inactiveItem();
     }
     return () => {
       isMounted = false;
@@ -61,15 +27,58 @@ const GroceryCard = ({ item }) => {
     .collection('items')
     .doc(item.itemName);
 
-  // const setTimeTillNextPurchase = () => {
-  //   if (x < 7) {
-  //     // soon
-  //   } else if ( x >= 7 && x <= 30) {
-  //     // kind of soon
-  //   } else if ( x > 30) {
-  //     // Not Soon
-  //   }
-  // }
+  const oneFullDayInMS = 24 * 60 * 60 * 1000;
+  const daysUntilPurchase = Math.round(
+    (item.nextPurchaseDate.toDate() - new Date()) / oneFullDayInMS,
+  );
+
+  const isInactive = () => {
+    let lastPDToEstimatePD;
+    let timeSinceLastPurchase;
+    const today = new Date();
+    const nextPD = item.nextPurchaseDate.toDate();
+    const dateAdded = item.dateAdded.toDate();
+
+    if (item.lastPurchase) {
+      const lastPD = item.lastPurchase.toDate();
+      lastPDToEstimatePD = (nextPD - lastPD) / oneFullDayInMS;
+      timeSinceLastPurchase = (today - lastPD) / oneFullDayInMS;
+    } else {
+      lastPDToEstimatePD = (nextPD - dateAdded) / oneFullDayInMS;
+      timeSinceLastPurchase = (today - dateAdded) / oneFullDayInMS;
+    }
+    return timeSinceLastPurchase >= lastPDToEstimatePD * 2;
+  };
+
+  const setTimeTillNextPurchase = () => {
+    if (isInactive()) {
+      setTimeFrame('Inactive');
+      setColor('grey');
+    } else {
+      if (daysUntilPurchase <= 7) {
+        setTimeFrame('Soon');
+        setColor('green');
+      } else if (daysUntilPurchase > 7 && daysUntilPurchase < 30) {
+        setTimeFrame('Kind of Soon');
+        setColor('yellow');
+      } else if (daysUntilPurchase >= 30) {
+        setTimeFrame('Not Soon');
+        setColor('red');
+      }
+    }
+  };
+
+  const inactiveItem = () => {
+    if (isInactive()) {
+      ref.update({
+        inactive: true,
+      });
+    } else {
+      ref.update({
+        inactive: false,
+      });
+    }
+  };
 
   const updatePurchased = () => {
     if (purchased) {
@@ -129,7 +138,7 @@ const GroceryCard = ({ item }) => {
   };
 
   return (
-    <div>
+    <div aria-label={timeFrame} style={{ background: color }}>
       <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
         Purchased
       </label>
