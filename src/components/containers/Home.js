@@ -30,7 +30,7 @@ class Home extends Component {
 
   handleChange = (e) => {
     this.setState({
-      token: e.target.value,
+      token: e.target.value.trim(),
     });
   };
 
@@ -50,6 +50,11 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <h1>Smart Shopping List</h1>
+        <p>
+          Please create a new shopping list or enter a token to join an existing
+          list.
+        </p>
         <button onClick={this.props.handleClick}>Create List...</button>
         <br />
         <label htmlFor="token">Enter token:</label>
