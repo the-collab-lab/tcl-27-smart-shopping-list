@@ -39,6 +39,12 @@ const GroceryCard = ({ item }) => {
     }
   };
 
+  const handleDelete = () => {
+    if (window.confirm('Are you sure?')) {
+      ref.delete();
+    }
+  };
+
   const purchasedTimeLimit = () => {
     if (item.checkedTime) {
       const timeSincePurchased = new Date() - item.checkedTime.toDate();
@@ -92,6 +98,9 @@ const GroceryCard = ({ item }) => {
         value={purchased}
         checked={purchased}
       />
+      <button type="button" onClick={handleDelete}>
+        X
+      </button>
       <p>ITEM: {item.itemName}</p>
       <p>
         LAST PURCHASE DATE:{' '}
