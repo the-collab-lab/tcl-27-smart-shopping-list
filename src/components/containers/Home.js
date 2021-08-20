@@ -30,14 +30,14 @@ class Home extends Component {
 
   handleChange = (e) => {
     this.setState({
-      token: e.target.value.trim(),
+      token: e.target.value,
     });
   };
 
   handleClick = (e) => {
     e.preventDefault();
-    if (this.state.tokens.includes(this.state.token)) {
-      localStorage.setItem('token', this.state.token);
+    if (this.state.tokens.includes(this.state.token.trim())) {
+      localStorage.setItem('token', this.state.token.trim());
       this.props.setLoggedIn(true);
       this.setState({
         token: '',
