@@ -1,5 +1,6 @@
 import React from 'react';
 import { fb } from '../lib/firebase';
+import firebase from 'firebase/app';
 import DatePicker from 'react-datepicker';
 import BottomNav from './BottomNav';
 
@@ -81,6 +82,9 @@ class AddItem extends React.Component {
               userToken: localStorage.getItem('token'),
             });
 
+          const nextPurchaseDate = (days) =>
+            new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+
           const updateItems = fb
             .firestore()
             .collection('groceries')
@@ -89,11 +93,15 @@ class AddItem extends React.Component {
             .doc(this.state.itemName)
             .set(
               {
+                dateAdded: firebase.firestore.FieldValue.serverTimestamp(),
                 itemName: this.state.itemName,
                 estimatedFrequency: Number(this.state.frequency),
                 lastPurchase: this.state.lastPurchase,
                 purchased: false,
                 numberOfPurchases: numberOfPurchases,
+                nextPurchaseDate: nextPurchaseDate(
+                  Number(this.state.frequency),
+                ),
               },
               { merge: true },
             )

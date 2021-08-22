@@ -27,13 +27,30 @@ const GroceryContainer = () => {
     };
   }, []);
 
+  const sortByNextPurchaseAndName = (a, b) => {
+    if (
+      a.nextPurchaseDate.toDate().toDateString() ===
+      b.nextPurchaseDate.toDate().toDateString()
+    ) {
+      return a.itemName - b.itemName;
+    }
+    return a.nextPurchaseDate > b.nextPurchaseDate ? 1 : -1;
+  };
+
+  const sortByInactive = (a, b) => {
+    if (a.inactive && b.inactive === true) {
+      return a.itemName > b.itemName ? 1 : -1;
+    }
+    if (a.inactive < b.inactive) return -1;
+  };
+
   const getGroceries = () => {
     ref.onSnapshot((querySnapshot) => {
       const groceries = [];
       querySnapshot.forEach((item) => {
         groceries.push(item.data());
       });
-      setGrocery(groceries);
+      setGrocery(groceries.sort(sortByNextPurchaseAndName));
       setLoading(false);
     });
   };
@@ -84,6 +101,7 @@ const GroceryContainer = () => {
         </button>
         <ul>
           {grocery
+            .sort(sortByInactive)
             .filter((g) =>
               g.itemName.toLowerCase().includes(input.toLowerCase()),
             )
