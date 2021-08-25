@@ -3,6 +3,7 @@ import { fb } from '../lib/firebase';
 import firebase from 'firebase/app';
 import DatePicker from 'react-datepicker';
 import BottomNav from './BottomNav';
+import UserToken from './UserToken';
 
 const initialState = {
   itemName: '',
@@ -182,6 +183,7 @@ class AddItem extends React.Component {
         />
         <br />
         <button type="submit">Submit</button>
+        <UserToken />
         <BottomNav />
       </form>
     );

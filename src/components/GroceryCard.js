@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
 import calculateEstimate from '../lib/estimates';
 import { fb } from '../lib/firebase';
+import Collapsible from 'react-collapsible';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
@@ -158,17 +159,18 @@ const GroceryCard = ({ item }) => {
       <button type="button" onClick={handleDelete}>
         X
       </button>
-      <p>ITEM: {item.itemName}</p>
-      <p>
-        LAST PURCHASE DATE:{' '}
-        {item.lastPurchase ? item.lastPurchase.toDate().toDateString() : 'NA'}
-      </p>
-      <p>
-        NEXT ESTIMATED PURCHASE DATE:{' '}
-        {item.nextPurchaseDate
-          ? item.nextPurchaseDate.toDate().toDateString()
-          : ''}
-      </p>
+      <Collapsible trigger={item.itemName}>
+        <p>
+          LAST PURCHASE DATE:{' '}
+          {item.lastPurchase ? item.lastPurchase.toDate().toDateString() : 'NA'}
+        </p>
+        <p>
+          NEXT ESTIMATED PURCHASE DATE:{' '}
+          {item.nextPurchaseDate
+            ? item.nextPurchaseDate.toDate().toDateString()
+            : ''}
+        </p>
+      </Collapsible>
     </div>
   );
 };

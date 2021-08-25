@@ -50,7 +50,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Smart Shopping List</h1>
         <p>
           Please create a new shopping list or enter a token to join an existing
           list.
