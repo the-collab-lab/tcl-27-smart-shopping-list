@@ -182,7 +182,7 @@ class AddItem extends React.Component {
         />
         <br />
         <button type="submit">Submit</button>
-        <BottomNav />
+        <BottomNav setLoggedIn={this.props.setLoggedIn} />
       </form>
     );
   }

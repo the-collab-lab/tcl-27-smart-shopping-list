@@ -52,10 +52,22 @@ function App() {
             <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
           )}
         </Route>
-        <Route exact path="/list" component={GroceryContainer}>
-          {!loggedIn && <Redirect to="/" />}
+
+        <Route exact path="/list">
+          {loggedIn ? (
+            <GroceryContainer setLoggedIn={setLoggedIn} />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
-        <Route exact path="/add-an-item" component={AddItem}></Route>
+
+        <Route exact path="/add-an-item">
+          {loggedIn ? (
+            <AddItem setLoggedIn={setLoggedIn} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
       </Switch>
     </div>
   );

@@ -51,13 +51,15 @@ class Home extends Component {
     return (
       <div>
         <h1>Smart Shopping List</h1>
-        <p>
+        <h2>Welcome to our App!</h2>
+        <h3>
           Please create a new shopping list or enter a token to join an existing
           list.
-        </p>
-        <button onClick={this.props.handleClick}>Create List...</button>
-        <br />
-        <label htmlFor="token">Enter token:</label>
+        </h3>
+
+        <h4>
+          <label htmlFor="token">Please enter an existing token:</label>
+        </h4>
         <input
           type="text"
           id="token"
@@ -72,6 +74,10 @@ class Home extends Component {
         >
           Submit
         </button>
+        <br />
+
+        <h4>Or create a new shopping list:</h4>
+        <button onClick={this.props.handleClick}>Create List...</button>
       </div>
     );
   }
