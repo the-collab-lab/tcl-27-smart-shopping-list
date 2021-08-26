@@ -3,6 +3,11 @@ import { fb } from '../lib/firebase';
 import firebase from 'firebase/app';
 import DatePicker from 'react-datepicker';
 import BottomNav from './BottomNav';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
+import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 
 const initialState = {
   itemName: '',
@@ -128,62 +133,81 @@ class AddItem extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.submitHandler}>
-        <h1>Item </h1>
-        <p>Please enter an item:</p>
-        <input
-          type="text"
-          name="itemName"
-          onChange={this.changeHandler}
-          value={this.state.itemName}
-          placeholder="Item name..."
-        />
-        <div style={{ fontsize: 12, color: 'red' }}>
-          {this.state.itemNameError}
-        </div>
-        <p>When will you need to buy this item next?</p>
-        <div style={{ fontsize: 12, color: 'red' }}>
-          {this.state.frequencyError}
-        </div>
-        <div>
-          <p>Soon</p>
-          <input
-            type="radio"
-            name="frequency"
-            value="7"
-            checked={this.state.frequency === '7'}
-            onChange={this.changeHandler}
-          />
-          <p>Kind of soon</p>
-          <input
-            type="radio"
-            name="frequency"
-            value="14"
-            checked={this.state.frequency === '14'}
-            onChange={this.changeHandler}
-          />
-          <p>Not Soon</p>
-          <input
-            type="radio"
-            name="frequency"
-            value="30"
-            checked={this.state.frequency === '30'}
-            onChange={this.changeHandler}
-          />
-        </div>
+      <Container>
+        <Form onSubmit={this.submitHandler}>
+          <h1>Item </h1>
+          <Form.Group>
+            <Form.Label htmlFor="item-name">Please enter an item:</Form.Label>
+            <FormControl
+              type="text"
+              id="item-name"
+              name="itemName"
+              onChange={this.changeHandler}
+              value={this.state.itemName}
+              placeholder="Item name..."
+            />
+            <div style={{ fontsize: 12, color: 'red' }}>
+              {this.state.itemNameError}
+            </div>
+          </Form.Group>
 
-        <p>Last purchase:</p>
-        <DatePicker
-          placeholderText="Click to select a date"
-          selected={this.state.lastPurchase}
-          onChange={(date) => this.setState({ lastPurchase: date })}
-          isClearable
-          popperPlacement="bottom"
-        />
-        <br />
-        <button type="submit">Submit</button>
+          <Form.Group>
+            <Form.Label htmlFor="frequency">
+              When will you need to buy this item next?
+            </Form.Label>
+            <div style={{ fontsize: 12, color: 'red' }}>
+              {this.state.frequencyError}
+            </div>
+            <div>
+              <Form.Check.Label htmlFor="soon">Soon</Form.Check.Label>
+              <Form.Check
+                type="radio"
+                name="frequency"
+                id="soon"
+                value="7"
+                checked={this.state.frequency === '7'}
+                onChange={this.changeHandler}
+              />
+              <Form.Check.Label htmlFor="kind-of-soon">
+                Kind of soon
+              </Form.Check.Label>
+              <Form.Check
+                type="radio"
+                name="frequency"
+                id="kind-of-soon"
+                value="14"
+                checked={this.state.frequency === '14'}
+                onChange={this.changeHandler}
+              />
+              <Form.Check.Label htmlFor="not-soon">Not Soon</Form.Check.Label>
+              <Form.Check
+                type="radio"
+                name="frequency"
+                id="not-soon"
+                value="30"
+                checked={this.state.frequency === '30'}
+                onChange={this.changeHandler}
+              />
+            </div>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label htmlFor="last-purchase">Last purchase:</Form.Label>
+            <DatePicker
+              id="last-purchase"
+              placeholderText="Click to select a date"
+              selected={this.state.lastPurchase}
+              onChange={(date) => this.setState({ lastPurchase: date })}
+              isClearable
+              popperPlacement="bottom"
+            />
+            <br />
+            <button type="submit">Submit</button>
+          </Form.Group>
+        </Form>
+
         <BottomNav setLoggedIn={this.props.setLoggedIn} />
-      </form>
+      </Container>
     );
   }
 }
