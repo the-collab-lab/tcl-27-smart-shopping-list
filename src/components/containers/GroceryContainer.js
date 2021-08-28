@@ -80,7 +80,7 @@ const GroceryContainer = ({ setLoggedIn }) => {
         <button type="submit" onClick={handleClick}>
           Add an item
         </button>
-        <BottomNav />
+        <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   } else {

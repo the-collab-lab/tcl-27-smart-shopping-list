@@ -22,7 +22,7 @@ const BottomNav = ({ setLoggedIn }) => {
           </NavLink>
         </li>
         <li>
-          <button onClick={(e) => handleClick(e)}>Log Out</button>
+          <button onClick={handleClick}>Log Out</button>
         </li>
       </ul>
     </nav>
