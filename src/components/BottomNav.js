@@ -2,20 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const BottomNav = ({ setLoggedIn }) => {
-  // const [redirect, setRedirect] = useState(false)
-
   const handleClick = (e) => {
     e.preventDefault();
-    // setRedirect(true)
     localStorage.clear();
     setLoggedIn(false);
   };
-
-  // const renderRedirect = () => {
-  //   if (redirect) {
-  //     return <Redirect to='/' />
-  //   }
-  // }
 
   return (
     <nav>
@@ -31,11 +22,7 @@ const BottomNav = ({ setLoggedIn }) => {
           </NavLink>
         </li>
         <li>
-          {/* {renderRedirect()} */}
-          <button onClick={(e) => handleClick(e)}>
-            Log Out
-            {/* <Redirect to='/' /> */}
-          </button>
+          <button onClick={(e) => handleClick(e)}>Log Out</button>
         </li>
       </ul>
     </nav>
