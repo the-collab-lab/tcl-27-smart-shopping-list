@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from 'firebase/app';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import 'firebase/firestore';
@@ -54,10 +55,22 @@ function App() {
             <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
           )}
         </Route>
-        <Route exact path="/list" component={GroceryContainer}>
-          {!loggedIn && <Redirect to="/" />}
+
+        <Route exact path="/list">
+          {loggedIn ? (
+            <GroceryContainer setLoggedIn={setLoggedIn} />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
-        <Route exact path="/add-an-item" component={AddItem}></Route>
+
+        <Route exact path="/add-an-item">
+          {loggedIn ? (
+            <AddItem setLoggedIn={setLoggedIn} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
       </Switch>
     </div>
   );

@@ -5,7 +5,7 @@ import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
 import UserToken from '../UserToken';
 
-const GroceryContainer = () => {
+const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState('');
@@ -81,7 +81,7 @@ const GroceryContainer = () => {
           Add an item
         </button>
         <UserToken />
-        <BottomNav />
+        <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   } else {
@@ -112,7 +112,7 @@ const GroceryContainer = () => {
             ))}
         </ul>
         <UserToken />
-        <BottomNav />
+        <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   }

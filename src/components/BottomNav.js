@@ -1,7 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const BottomNav = () => {
+const BottomNav = ({ setLoggedIn }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    setLoggedIn(false);
+  };
+
   return (
     <nav>
       <ul>
@@ -14,6 +20,9 @@ const BottomNav = () => {
           <NavLink className="nav-link" to="/add-an-item">
             Add an Item
           </NavLink>
+        </li>
+        <li>
+          <button onClick={handleClick}>Log Out</button>
         </li>
       </ul>
     </nav>

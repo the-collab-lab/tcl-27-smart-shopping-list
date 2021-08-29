@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { fb } from '../../lib/firebase';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
+import FormControl from 'react-bootstrap/FormControl';
 
 class Home extends Component {
   constructor(props) {
@@ -49,29 +53,42 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <p>
+      <Container>
+        <h1>Smart Shopping List</h1>
+        <h2>Welcome to our App!</h2>
+        <h3>
           Please create a new shopping list or enter a token to join an existing
           list.
-        </p>
-        <button onClick={this.props.handleClick}>Create List...</button>
+        </h3>
         <br />
-        <label htmlFor="token">Enter token:</label>
-        <input
-          type="text"
-          id="token"
-          onChange={this.handleChange}
-          value={this.state.token}
-        />
-        <button
-          type="submit"
-          name="submit"
-          value="submit"
-          onClick={(e) => this.handleClick(e)}
-        >
-          Submit
-        </button>
-      </div>
+        <h4>
+          <label htmlFor="token">Please enter an existing token:</label>
+        </h4>
+        <InputGroup className="mb-3">
+          <FormControl
+            type="text"
+            id="token"
+            onChange={this.handleChange}
+            value={this.state.token}
+          />
+          <Button
+            variant="primary"
+            type="submit"
+            name="submit"
+            value="submit"
+            onClick={(e) => this.handleClick(e)}
+          >
+            Submit
+          </Button>
+        </InputGroup>
+        <br />
+        <br />
+
+        <h4>Or create a new shopping list:</h4>
+        <Button variant="primary" onClick={this.props.handleClick}>
+          Create List...
+        </Button>
+      </Container>
     );
   }
 }
