@@ -10,6 +10,7 @@ import Home from './components/containers/Home';
 import GroceryContainer from './components/containers/GroceryContainer';
 import AddItem from './components/AddItem';
 import { fb } from './lib/firebase';
+import Header from './components/Header';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Switch>
         <Route exact path="/">
           {loggedIn ? (

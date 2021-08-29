@@ -3,6 +3,7 @@ import { fb } from '../../lib/firebase';
 import GroceryCard from '../GroceryCard';
 import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
+import UserToken from '../UserToken';
 
 const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
@@ -75,18 +76,17 @@ const GroceryContainer = ({ setLoggedIn }) => {
   if (grocery.length === 0 && !loading) {
     return (
       <div>
-        <h1>Smart Shopping List</h1>
         <p>Your shopping list is currently empty.</p>
         <button type="submit" onClick={handleClick}>
           Add an item
         </button>
+        <UserToken />
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   } else {
     return (
       <div>
-        <h1>Smart Shopping List</h1>
         <label htmlFor="search-field">
           <input
             id="search-field"
@@ -111,6 +111,7 @@ const GroceryContainer = ({ setLoggedIn }) => {
               </li>
             ))}
         </ul>
+        <UserToken />
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
