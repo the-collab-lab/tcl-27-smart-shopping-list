@@ -65,26 +65,15 @@ li {
 
 .accordion-body p {
   text-align: left;
+  margin: 0;
 }
 
-.accordion-body {
+.accordion-collapse .accordion-body {
   border-style: solid;
   border-color: #fde49c;
   border-radius: 15px;
-  /* background-color: #fde49c; */
+  margin: 0 20px 0 0;
 }
-
-ul li .accordion-item {
-  border-radius: 15px;
-  background-color: #fde49c;
-  border: 1px solid #fde49c;
-}
-
-/* ul li .accordion-item::after {
-  border-radius: 15px;
-  background-color: #fde49c;
-  border: 1px solid #fde49c;
-} */
 
 .accordion-header .accordion-button {
   padding: 0px;
@@ -109,6 +98,12 @@ button .deleteButton {
   zoom: 1.8;
 }
 
+.accordion-button:not(.collapsed) {
+  color: inherit !important;
+  background-color: #fde49c !important;
+  box-shadow: none !important;
+}
+
 .log-out-button {
   float: right;
 }
@@ -127,7 +122,7 @@ button .deleteButton {
 }
 
 .tokenAccordion .accordion-body p {
-  padding: 0 12px 0 0;
+  padding: 0;
   text-align: center;
 }
 

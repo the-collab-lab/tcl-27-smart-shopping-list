@@ -166,7 +166,11 @@ const GroceryCard = ({ item }) => {
   return (
     <Accordion flush>
       <Accordion.Item eventKey="0">
-        <div aria-label={timeFrame} style={{ background: color }}>
+        <div
+          className="timeFrame"
+          aria-label={timeFrame}
+          style={{ background: color }}
+        >
           <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
             Purchased
           </label>
