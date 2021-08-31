@@ -130,7 +130,7 @@ class AddItem extends React.Component {
                   frequencyError: '',
                   successModal: false,
                 });
-              }, 1500);
+              }, 2000);
             });
         } else {
           // alert('ITEM ALREADY EXISTS!');
@@ -142,7 +142,7 @@ class AddItem extends React.Component {
             return this.setState({
               successModal: false,
             });
-          }, 1500);
+          }, 2000);
         }
       });
     }
