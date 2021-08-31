@@ -14,23 +14,6 @@ const BottomNav = ({ setLoggedIn }) => {
   };
 
   return (
-    // <Navbar fixed="bottom">
-    //   <Container>
-    //     <NavLink className="nav-link" to="/list">
-    //       List
-    //     </NavLink>
-
-    //     <NavLink className="nav-link" to="/add-an-item">
-    //       Add an Item
-    //     </NavLink>
-
-    //     <Navbar.Collapse className="justify-content-end">
-    //       <Button onClick={handleClick} variant="outline-info">
-    //         Log Out
-    //       </Button>
-    //     </Navbar.Collapse>
-    //   </Container>
-    // </Navbar>
     <div className="nav-bar">
       <ul>
         <li>
