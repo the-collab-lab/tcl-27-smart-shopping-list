@@ -68,6 +68,10 @@ li {
   margin: 0;
 }
 
+.accordion-collapse {
+  background-color: #fde49c;
+}
+
 .accordion-collapse .accordion-body {
   border-style: solid;
   border-color: #fde49c;
