@@ -33,6 +33,7 @@ nav {
 
 ul {
   background-color: #fde49c;
+  margin-bottom: 0 !important;
 }
 
 li {
