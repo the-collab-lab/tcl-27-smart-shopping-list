@@ -1,20 +1,23 @@
 .App {
   text-align: center;
+  background-color: #fde49c;
+  height: 100vh;
+  width: 100vw;
 }
 
 .App-logo {
   height: 40vmin;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.header {
+  padding: 30px;
+  text-align: center;
+  background: #52d8e0;
   color: white;
+}
+
+.header h1 {
+  font-size: 50px;
 }
 
 .App-link {
@@ -28,10 +31,18 @@ nav {
   width: 100%;
 }
 
+ul {
+  background-color: #fde49c;
+}
+
 li {
   list-style-type: none;
   display: inline;
-  padding: 10px;
+  padding: 0px;
+}
+
+.list {
+  padding: 0px;
 }
 
 .nav-link:hover {
@@ -40,4 +51,87 @@ li {
 
 .nav-link.active {
   font-weight: bold;
+}
+
+/* Grocery card styles */
+.itemName {
+  padding: 10px 20px 10px 20px;
+  width: 100vw;
+  margin: 0px;
+  border-style: solid;
+  border-color: #fde49c;
+  border-radius: 15px;
+}
+
+.accordion-body p {
+  text-align: left;
+}
+
+.accordion-body {
+  border-style: solid;
+  border-color: #fde49c;
+  border-radius: 15px;
+  /* background-color: #fde49c; */
+}
+
+ul li .accordion-item {
+  border-radius: 15px;
+  background-color: #fde49c;
+  border: 1px solid #fde49c;
+}
+
+/* ul li .accordion-item::after {
+  border-radius: 15px;
+  background-color: #fde49c;
+  border: 1px solid #fde49c;
+} */
+
+.accordion-header .accordion-button {
+  padding: 0px;
+  background-color: #fde49c;
+}
+
+.accordion-header::after {
+  background-color: #fde49c;
+}
+
+button .deleteButton {
+  margin: 0px;
+  float: right;
+  border: none;
+  background: none;
+}
+
+#purchased-checkbox {
+  margin: 0 10px 0 10px;
+  padding: 20px;
+  align-self: baseline;
+  zoom: 1.8;
+}
+
+.log-out-button {
+  float: right;
+}
+
+/* User token styles */
+.tokenAccordion p {
+  background: #fde49c;
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  margin: 0px;
+  text-align: center;
+}
+
+.tokenAccordion .accordion-body {
+  padding: 0;
+}
+
+.tokenAccordion .accordion-body p {
+  padding: 0 12px 0 0;
+  text-align: center;
+}
+
+/* Search field styles */
+#search-field {
+  margin: 20px;
 }

@@ -136,7 +136,6 @@ class AddItem extends React.Component {
     return (
       <Container>
         <Form onSubmit={this.submitHandler}>
-          <h1>Item </h1>
           <Form.Group>
             <Form.Label htmlFor="item-name">Please enter an item:</Form.Label>
             <FormControl
@@ -206,7 +205,6 @@ class AddItem extends React.Component {
             <button type="submit">Submit</button>
           </Form.Group>
         </Form>
-
         <UserToken />
         <BottomNav setLoggedIn={this.props.setLoggedIn} />
       </Container>

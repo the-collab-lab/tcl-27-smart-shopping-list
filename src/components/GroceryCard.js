@@ -3,11 +3,22 @@ import React, { useEffect, useState } from 'react';
 import calculateEstimate from '../lib/estimates';
 import { fb } from '../lib/firebase';
 import Collapsible from 'react-collapsible';
+import Accordion from 'react-bootstrap/accordion';
+import Card from 'react-bootstrap/Card';
+import MaterialIcon, {
+  circle,
+  remove_circle,
+  stars,
+  radio_button_unchecked,
+  delete_forever,
+} from 'material-icons-react';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
   const [timeFrame, setTimeFrame] = useState('');
   const [color, setColor] = useState('white');
+  const [opacity, setOpacity] = useState('100%');
+  const [itemIcon, setItemIcon] = useState('');
 
   useEffect(() => {
     let isMounted = true;
@@ -54,17 +65,25 @@ const GroceryCard = ({ item }) => {
   const setTimeTillNextPurchase = () => {
     if (isInactive()) {
       setTimeFrame('Inactive');
-      setColor('grey');
+      setColor('#8FA2A3');
+      setOpacity('50%');
+      setItemIcon('remove_circle');
     } else {
       if (daysUntilPurchase <= 7) {
         setTimeFrame('Soon');
-        setColor('green');
+        setColor('#52D8E0');
+        setOpacity('50%');
+        setItemIcon('stars');
       } else if (daysUntilPurchase > 7 && daysUntilPurchase < 30) {
         setTimeFrame('Kind of Soon');
-        setColor('yellow');
+        setColor('#64C9CF');
+        setOpacity('50%');
+        setItemIcon('circle');
       } else if (daysUntilPurchase >= 30) {
         setTimeFrame('Not Soon');
-        setColor('red');
+        setColor('#7BB4B7');
+        setOpacity('50%');
+        setItemIcon('radio_button_unchecked');
       }
     }
   };
@@ -145,33 +164,50 @@ const GroceryCard = ({ item }) => {
   };
 
   return (
-    <div aria-label={timeFrame} style={{ background: color }}>
-      <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
-        Purchased
-      </label>
-      <input
-        id="purchased-checkbox"
-        type="checkbox"
-        onChange={() => updatePurchased()}
-        value={purchased}
-        checked={purchased}
-      />
-      <button type="button" onClick={handleDelete}>
-        X
-      </button>
-      <Collapsible trigger={item.itemName}>
-        <p>
-          LAST PURCHASE DATE:{' '}
-          {item.lastPurchase ? item.lastPurchase.toDate().toDateString() : 'NA'}
-        </p>
-        <p>
-          NEXT ESTIMATED PURCHASE DATE:{' '}
-          {item.nextPurchaseDate
-            ? item.nextPurchaseDate.toDate().toDateString()
-            : ''}
-        </p>
-      </Collapsible>
-    </div>
+    <Accordion flush>
+      <Accordion.Item eventKey="0">
+        <div aria-label={timeFrame} style={{ background: color }}>
+          <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
+            Purchased
+          </label>
+          <Accordion.Header>
+            <div className="itemName" style={{ background: color }}>
+              <MaterialIcon icon={itemIcon} />
+              <input
+                id="purchased-checkbox"
+                type="checkbox"
+                onChange={() => updatePurchased()}
+                value={purchased}
+                checked={purchased}
+              />
+              {item.itemName}
+
+              <button
+                className="deleteButton"
+                type="deleteButton"
+                onClick={handleDelete}
+              >
+                <MaterialIcon icon="delete_forever" />
+              </button>
+            </div>
+          </Accordion.Header>
+          <Accordion.Body>
+            <p>
+              LAST PURCHASE DATE:{' '}
+              {item.lastPurchase
+                ? item.lastPurchase.toDate().toDateString()
+                : 'NA'}
+            </p>
+            <p>
+              NEXT ESTIMATED PURCHASE DATE:{' '}
+              {item.nextPurchaseDate
+                ? item.nextPurchaseDate.toDate().toDateString()
+                : ''}
+            </p>
+          </Accordion.Body>
+        </div>
+      </Accordion.Item>
+    </Accordion>
   );
 };
 

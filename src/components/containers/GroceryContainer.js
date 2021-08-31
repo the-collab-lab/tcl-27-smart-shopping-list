@@ -4,6 +4,9 @@ import GroceryCard from '../GroceryCard';
 import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
 import UserToken from '../UserToken';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
 
 const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
@@ -88,18 +91,25 @@ const GroceryContainer = ({ setLoggedIn }) => {
     return (
       <div>
         <label htmlFor="search-field">
-          <input
-            id="search-field"
-            type="text"
-            onChange={handleChange}
-            value={input}
-            placeholder="Search Item..."
-          />
+          <InputGroup size="lg" id="search-field" type="text">
+            <FormControl
+              onChange={handleChange}
+              value={input}
+              placeholder="Search Item..."
+              aria-label="search-field"
+              aria-describedby="inputGroup-sizing-sm"
+            />
+            <Button
+              style={{ display: resetDisplay }}
+              onClick={handleResetClick}
+              variant="outline-secondary"
+              id="button-addon2"
+            >
+              X
+            </Button>
+          </InputGroup>
         </label>
-        <button onClick={handleResetClick} style={{ display: resetDisplay }}>
-          X
-        </button>
-        <ul>
+        <ul className="list">
           {grocery
             .sort(sortByInactive)
             .filter((g) =>
