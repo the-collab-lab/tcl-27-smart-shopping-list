@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import UserToken from './UserToken';
+import Alert from './Alert';
 
 const initialState = {
   itemName: '',
@@ -18,6 +19,8 @@ const initialState = {
   userToken: '',
   itemNameError: '',
   frequencyError: '',
+  successModal: false,
+  alertPrompt: '',
 };
 
 class AddItem extends React.Component {
@@ -112,17 +115,34 @@ class AddItem extends React.Component {
               { merge: true },
             )
             .then(() => {
-              alert('Successfully added ' + this.state.itemName);
               this.setState({
-                itemName: '',
-                frequency: '',
-                lastPurchase: null,
-                itemNameError: '',
-                frequencyError: '',
+                successModal: true,
+                alertPrompt: 'has been added!',
               });
+            })
+            .then(() => {
+              setTimeout(() => {
+                return this.setState({
+                  itemName: '',
+                  frequency: '',
+                  lastPurchase: null,
+                  itemNameError: '',
+                  frequencyError: '',
+                  successModal: false,
+                });
+              }, 1500);
             });
         } else {
-          alert('ITEM ALREADY EXISTS!');
+          // alert('ITEM ALREADY EXISTS!');
+          this.setState({
+            successModal: true,
+            alertPrompt: 'already exists!',
+          });
+          setTimeout(() => {
+            return this.setState({
+              successModal: false,
+            });
+          }, 1500);
         }
       });
     }
@@ -134,7 +154,7 @@ class AddItem extends React.Component {
 
   render() {
     return (
-      <Container>
+      <div>
         <Form onSubmit={this.submitHandler}>
           <Form.Group>
             <Form.Label htmlFor="item-name">Please enter an item:</Form.Label>
@@ -205,9 +225,17 @@ class AddItem extends React.Component {
             <button type="submit">Submit</button>
           </Form.Group>
         </Form>
+
+        <Alert
+          show={this.state.successModal}
+          onHide={() => this.setState({ successModal: false })}
+          itemName={this.state.itemName}
+          alertPrompt={this.state.alertPrompt}
+        />
+
         <UserToken />
         <BottomNav setLoggedIn={this.props.setLoggedIn} />
-      </Container>
+      </div>
     );
   }
 }

@@ -46,14 +46,6 @@ li {
   padding: 0px;
 }
 
-.nav-link:hover {
-  font-weight: bold;
-}
-
-.nav-link.active {
-  font-weight: bold;
-}
-
 /* Grocery card styles */
 .itemName {
   padding: 10px 20px 10px 20px;
