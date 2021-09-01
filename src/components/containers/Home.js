@@ -53,43 +53,43 @@ class Home extends Component {
 
   render() {
     return (
-      <Container>
-        <main>
-          <h2>Welcome to Woot Woot!</h2>
-          <h3>
-            Please create a new shopping list or enter a token to join an
-            existing list.
-          </h3>
-          <br />
-          <h4>
-            <label htmlFor="token">Please enter an existing token:</label>
-          </h4>
-          <InputGroup className="mb-3">
-            <FormControl
-              type="text"
-              id="token"
-              onChange={this.handleChange}
-              value={this.state.token}
-            />
-            <Button
-              variant="primary"
-              type="submit"
-              name="submit"
-              value="submit"
-              onClick={(e) => this.handleClick(e)}
-            >
-              Submit
-            </Button>
-          </InputGroup>
-          <br />
-          <br />
-
-          <h4>Or create a new shopping list:</h4>
-          <Button variant="primary" onClick={this.props.handleClick}>
-            Create List...
+      <main>
+        <h4>Welcome to WootWoot!</h4>
+        <br />
+        <h5>
+          Please create a new shopping list or enter a token to join an existing
+          list.
+        </h5>
+        <br />
+        <p>
+          <label htmlFor="token">Please enter an existing list token:</label>
+        </p>
+        <InputGroup className="mb-3" id="home-input-token">
+          <FormControl
+            type="text"
+            id="token"
+            onChange={this.handleChange}
+            value={this.state.token}
+            placeholder="Please enter an existing list token..."
+          />
+          <Button
+            variant="outline-info"
+            type="submit"
+            name="submit"
+            value="submit"
+            onClick={(e) => this.handleClick(e)}
+          >
+            Submit
           </Button>
-        </main>
-      </Container>
+        </InputGroup>
+        <br />
+        <br />
+
+        <p>Or create a new shopping list:</p>
+        <Button variant="outline-info" onClick={this.props.handleClick}>
+          Create List...
+        </Button>
+      </main>
     );
   }
 }

@@ -1,15 +1,14 @@
-.nav-bar div {
-}
+@import url('https://fonts.googleapis.com/css?family=Bangers');
 
-.nav-bar ul {
+.nav-bar {
   width: 100%;
   position: fixed;
   bottom: 0;
   list-style-type: none;
   margin: 0;
-  padding: 5px;
+  padding: 10px 0 0 0;
   overflow: hidden;
-
+  z-index: 10;
   /* border-top: solid #52D8E0; */
   /* background-color: #52D8E0; */
 }
@@ -17,9 +16,10 @@
 .nav-bar li {
   vertical-align: top;
   display: inline;
-  padding: 15px;
+  padding: 5px;
   float: left;
   width: 25%;
+  font-family: 'Bangers';
   /* border-right: 1px solid #bbb; */
 }
 
@@ -28,14 +28,6 @@
   float: right;
 }
 
-/* li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-} */
-
 .nav-link {
   font-size: 25px;
 }
@@ -43,9 +35,11 @@
 .nav-link:hover {
   transition: 0.2s;
   transition-timing-function: ease;
-  font-weight: bold;
+  /* font-weight: bold; */
+  text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }
 
 .nav-link.active {
-  font-weight: bold;
+  /* font-weight: bold; */
+  text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }

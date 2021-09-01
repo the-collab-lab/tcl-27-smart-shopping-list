@@ -21,12 +21,19 @@ const initialState = {
   frequencyError: '',
   successModal: false,
   alertPrompt: '',
+  loading: true,
 };
 
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+  }
+
+  componentDidMount() {
+    this.setState({
+      loading: false,
+    });
   }
 
   validate = () => {
@@ -119,6 +126,7 @@ class AddItem extends React.Component {
                 successModal: true,
                 alertPrompt: 'has been added!',
               });
+              event.target.reset();
             })
             .then(() => {
               setTimeout(() => {
@@ -133,7 +141,6 @@ class AddItem extends React.Component {
               }, 2000);
             });
         } else {
-          // alert('ITEM ALREADY EXISTS!');
           this.setState({
             successModal: true,
             alertPrompt: 'already exists!',
@@ -153,90 +160,78 @@ class AddItem extends React.Component {
   };
 
   render() {
-    return (
-      <div>
-        <Form onSubmit={this.submitHandler}>
-          <Form.Group>
-            <Form.Label htmlFor="item-name">Please enter an item:</Form.Label>
-            <FormControl
-              type="text"
-              id="item-name"
-              name="itemName"
-              onChange={this.changeHandler}
-              value={this.state.itemName}
-              placeholder="Item name..."
-            />
-            <div style={{ fontsize: 12, color: 'red' }}>
-              {this.state.itemNameError}
-            </div>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label htmlFor="frequency">
-              When will you need to buy this item next?
-            </Form.Label>
-            <div style={{ fontsize: 12, color: 'red' }}>
-              {this.state.frequencyError}
-            </div>
-            <div>
-              <Form.Check.Label htmlFor="soon">Soon</Form.Check.Label>
-              <Form.Check
-                type="radio"
-                name="frequency"
-                id="soon"
-                value="7"
-                checked={this.state.frequency === '7'}
+    if (this.state.loading == true) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <UserToken />
+          <Form onSubmit={(e) => this.submitHandler(e)}>
+            <Form.Group>
+              <Form.Label htmlFor="item-name">Please enter an item:</Form.Label>
+              <FormControl
+                type="text"
+                id="item-name"
+                name="itemName"
                 onChange={this.changeHandler}
+                value={this.state.itemName}
+                placeholder="Item name..."
               />
-              <Form.Check.Label htmlFor="kind-of-soon">
-                Kind of soon
-              </Form.Check.Label>
-              <Form.Check
-                type="radio"
-                name="frequency"
-                id="kind-of-soon"
-                value="14"
-                checked={this.state.frequency === '14'}
-                onChange={this.changeHandler}
+              <div style={{ fontsize: 12, color: 'red' }}>
+                {this.state.itemNameError}
+              </div>
+            </Form.Group>
+
+            <Form.Group>
+              <div style={{ fontsize: 12, color: 'red' }}>
+                {this.state.frequencyError}
+              </div>
+              <div>
+                <Form.Select
+                  aria-label="next-purchase-selection"
+                  className="frequency-select"
+                  name="frequency"
+                  onChange={this.changeHandler}
+                  value={this.state.value}
+                >
+                  <option value="">
+                    When do you need to purchase this item next?
+                  </option>
+                  <option value="7">Soon</option>
+                  <option value="14">Kind of Soon</option>
+                  <option value="30">Not Soon</option>
+                </Form.Select>
+              </div>
+            </Form.Group>
+
+            <Form.Group className="lastPurchase">
+              <Form.Label htmlFor="last-purchase">Last purchase:</Form.Label>
+              <DatePicker
+                id="last-purchase"
+                placeholderText="Click to select a date"
+                selected={this.state.lastPurchase}
+                onChange={(date) => this.setState({ lastPurchase: date })}
+                isClearable
+                popperPlacement="bottom"
               />
-              <Form.Check.Label htmlFor="not-soon">Not Soon</Form.Check.Label>
-              <Form.Check
-                type="radio"
-                name="frequency"
-                id="not-soon"
-                value="30"
-                checked={this.state.frequency === '30'}
-                onChange={this.changeHandler}
-              />
-            </div>
-          </Form.Group>
+              <br />
+              <Button size="md" type="submit" variant="outline-info">
+                Submit
+              </Button>
+            </Form.Group>
+          </Form>
 
-          <Form.Group>
-            <Form.Label htmlFor="last-purchase">Last purchase:</Form.Label>
-            <DatePicker
-              id="last-purchase"
-              placeholderText="Click to select a date"
-              selected={this.state.lastPurchase}
-              onChange={(date) => this.setState({ lastPurchase: date })}
-              isClearable
-              popperPlacement="bottom"
-            />
-            <br />
-            <button type="submit">Submit</button>
-          </Form.Group>
-        </Form>
+          <Alert
+            show={this.state.successModal}
+            onHide={() => this.setState({ successModal: false })}
+            itemName={this.state.itemName}
+            alertPrompt={this.state.alertPrompt}
+          />
 
-        <Alert
-          show={this.state.successModal}
-          onHide={() => this.setState({ successModal: false })}
-          itemName={this.state.itemName}
-          alertPrompt={this.state.alertPrompt}
-        />
-
-        <UserToken />
-        <BottomNav setLoggedIn={this.props.setLoggedIn} />
-      </div>
-    );
+          <BottomNav setLoggedIn={this.props.setLoggedIn} />
+        </div>
+      );
+    }
   }
 }
 

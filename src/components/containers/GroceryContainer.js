@@ -79,19 +79,20 @@ const GroceryContainer = ({ setLoggedIn }) => {
   if (grocery.length === 0 && !loading) {
     return (
       <div>
+        <UserToken />
         <p>Your shopping list is currently empty.</p>
         <button type="submit" onClick={handleClick}>
           Add an item
         </button>
-        <UserToken />
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   } else {
     return (
       <div>
+        <UserToken />
         <label htmlFor="search-field">
-          <InputGroup size="lg" id="search-field" type="text">
+          <InputGroup size="md" id="search-field" type="text">
             <FormControl
               onChange={handleChange}
               value={input}
@@ -121,7 +122,6 @@ const GroceryContainer = ({ setLoggedIn }) => {
               </li>
             ))}
         </ul>
-        <UserToken />
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );

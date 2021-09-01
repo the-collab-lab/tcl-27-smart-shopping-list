@@ -1,16 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
 .App {
   text-align: center;
   background-color: #fde49c;
   height: 100vh;
   width: 100vw;
+  overflow: scroll;
 }
 
 .App-logo {
   height: 40vmin;
 }
 
+a {
+  color: #636363 !important;
+}
+
 .header {
-  padding: 30px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  /* padding: 10px; */
   text-align: center;
   background: #52d8e0;
   color: white;
@@ -18,36 +29,44 @@
 
 .header h1 {
   font-size: 50px;
+  font-family: 'Bangers';
 }
 
-.App-link {
+.header .material-icons {
+  font-size: 40px !important;
+}
+
+/* .App-link {
   color: #09d3ac;
-}
+} */
 
-nav {
+/* nav {
   position: fixed;
   bottom: 0px;
   text-align: center;
   width: 100%;
-}
+} */
 
-ul {
+/* ul {
   background-color: #fde49c;
   margin-bottom: 0 !important;
-}
+  overflow: scroll;
+  height: fit-content;
+} */
 
-li {
+/* li {
   list-style-type: none;
   display: inline;
   padding: 0px;
-}
+} */
 
 .list {
-  padding: 0px;
+  padding: 0px 0px 100px 0px;
+  z-index: -1;
 }
 
 /* Grocery card styles */
-.itemName {
+.item-name {
   padding: 10px 20px 10px 20px;
   width: 100vw;
   margin: 0px;
@@ -56,7 +75,11 @@ li {
   border-radius: 15px;
 }
 
-.accordion-body p {
+.item-name span {
+  font-family: 'Courgette';
+}
+
+.item-name .accordion-body p {
   text-align: left;
   margin: 0;
 }
@@ -101,15 +124,32 @@ button .deleteButton {
   box-shadow: none !important;
 }
 
-.log-out-button {
+.accordion-button:focus {
+  z-index: -1;
+  border-color: #fde49c !important;
+  outline: 0;
+  box-shadow: none !important;
+}
+
+/* .log-out-button {
   float: right;
+} */
+
+.btn-outline-info {
+  color: #636363 !important;
+  border-color: #636363 !important;
 }
 
 /* User token styles */
+.tokenAccordion {
+  padding-top: 10px;
+  padding-left: 20px;
+  background-color: #fde49c;
+}
+
 .tokenAccordion p {
   background: #fde49c;
   width: 100%;
-  padding: 10px 20px 10px 20px;
   margin: 0px;
   text-align: center;
 }
@@ -125,5 +165,62 @@ button .deleteButton {
 
 /* Search field styles */
 #search-field {
+  margin: 20px 75px 20px 0;
+}
+
+/* Add item component styles */
+
+.lastPurchase {
+  padding: 20px;
+}
+
+.lastPurchase .form-label {
+  padding: 10px;
+}
+
+Form {
+  padding-top: 35px;
+  text-align: center;
+  display: inline-block;
+}
+
+#item-name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#frequency-select {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+/* Home component styles */
+main {
+  padding-top: 10px;
+}
+
+input#token {
+  text-align: center;
   margin: 20px;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.input-group {
+  width: 450px !important;
+}
+
+#home-input-token button {
+  margin-top: 21px;
+  height: 37px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }

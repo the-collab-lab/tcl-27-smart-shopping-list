@@ -12,6 +12,7 @@ import MaterialIcon, {
   radio_button_unchecked,
   delete_forever,
 } from 'material-icons-react';
+import ConfirmModal from './ConfirmModal';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
@@ -19,6 +20,7 @@ const GroceryCard = ({ item }) => {
   const [color, setColor] = useState('white');
   const [opacity, setOpacity] = useState('100%');
   const [itemIcon, setItemIcon] = useState('');
+  const [confirmView, setConfirmView] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -117,9 +119,9 @@ const GroceryCard = ({ item }) => {
   };
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure?')) {
-      ref.delete();
-    }
+    // if (window.confirm('Are you sure?')) {
+    ref.delete();
+    // }
   };
 
   const purchasedTimeLimit = () => {
@@ -166,46 +168,54 @@ const GroceryCard = ({ item }) => {
   return (
     <Accordion flush>
       <Accordion.Item eventKey="0">
-        <div className="timeFrame" aria-label={timeFrame}>
-          <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
-            Purchased
-          </label>
-          <Accordion.Header>
-            <div className="itemName" style={{ background: color }}>
-              <MaterialIcon icon={itemIcon} />
-              <input
-                id="purchased-checkbox"
-                type="checkbox"
-                onChange={() => updatePurchased()}
-                value={purchased}
-                checked={purchased}
-              />
-              {item.itemName}
+        <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
+          Purchased
+        </label>
+        <Accordion.Header>
+          <div className="item-name" style={{ background: color }}>
+            <MaterialIcon icon={itemIcon} />
+            <input
+              id="purchased-checkbox"
+              type="checkbox"
+              onChange={() => updatePurchased()}
+              value={purchased}
+              checked={purchased}
+              onClick={(e) => e.stopPropagation()}
+              onFocus={(e) => e.stopPropagation()}
+            />
+            <span>{item.itemName}</span>
+            <button
+              className="deleteButton"
+              type="deleteButton"
+              onClick={(e) => {
+                setConfirmView(true);
+                e.stopPropagation();
+              }}
+            >
+              <MaterialIcon icon="delete_forever" />
+            </button>
 
-              <button
-                className="deleteButton"
-                type="deleteButton"
-                onClick={handleDelete}
-              >
-                <MaterialIcon icon="delete_forever" />
-              </button>
-            </div>
-          </Accordion.Header>
-          <Accordion.Body style={{ background: color }}>
-            <p>
-              LAST PURCHASE DATE:{' '}
-              {item.lastPurchase
-                ? item.lastPurchase.toDate().toDateString()
-                : 'NA'}
-            </p>
-            <p>
-              NEXT ESTIMATED PURCHASE DATE:{' '}
-              {item.nextPurchaseDate
-                ? item.nextPurchaseDate.toDate().toDateString()
-                : ''}
-            </p>
-          </Accordion.Body>
-        </div>
+            <ConfirmModal
+              confirmView={confirmView}
+              handleDelete={handleDelete}
+              setConfirmView={setConfirmView}
+            />
+          </div>
+        </Accordion.Header>
+        <Accordion.Body style={{ background: color }}>
+          <p>
+            <b>Last Purchase Date:</b>{' '}
+            {item.lastPurchase
+              ? item.lastPurchase.toDate().toDateString()
+              : 'N/A'}
+          </p>
+          <p>
+            <b>Next Estimated Purchase Date:</b>{' '}
+            {item.nextPurchaseDate
+              ? item.nextPurchaseDate.toDate().toDateString()
+              : ''}
+          </p>
+        </Accordion.Body>
       </Accordion.Item>
     </Accordion>
   );

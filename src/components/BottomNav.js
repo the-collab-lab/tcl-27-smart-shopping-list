@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import UserToken from './UserToken';
 
 const BottomNav = ({ setLoggedIn }) => {
   const handleClick = (e) => {
@@ -15,6 +16,7 @@ const BottomNav = ({ setLoggedIn }) => {
 
   return (
     <div className="nav-bar">
+      {/* <UserToken /> */}
       <ul>
         <li>
           <NavLink className="nav-link" to="/list">
@@ -27,9 +29,9 @@ const BottomNav = ({ setLoggedIn }) => {
           </NavLink>
         </li>
         <li>
-          <Button size="lg" onClick={handleClick} variant="outline-info">
+          <NavLink className="nav-link" to="/" onClick={handleClick}>
             Log Out
-          </Button>
+          </NavLink>
         </li>
       </ul>
     </div>

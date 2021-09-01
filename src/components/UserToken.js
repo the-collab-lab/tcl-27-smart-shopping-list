@@ -6,10 +6,14 @@ const UserToken = () => {
     <div className="tokenAccordion">
       <Accordion>
         <Accordion.Header>
-          <p>Want to share your shopping list?</p>
+          <p>
+            <em>Want to share your shopping list?</em>
+          </p>
         </Accordion.Header>
         <Accordion.Body>
-          <p>Share this token: {localStorage.getItem('token')}</p>
+          <p>
+            Share this token: <b>{localStorage.getItem('token')}</b>
+          </p>
         </Accordion.Body>
       </Accordion>
     </div>
