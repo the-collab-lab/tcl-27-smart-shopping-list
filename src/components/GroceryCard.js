@@ -117,9 +117,7 @@ const GroceryCard = ({ item }) => {
   };
 
   const handleDelete = () => {
-    // if (window.confirm('Are you sure?')) {
     ref.delete();
-    // }
   };
 
   const purchasedTimeLimit = () => {
@@ -215,6 +213,10 @@ const GroceryCard = ({ item }) => {
               ? item.nextPurchaseDate.toDate().toDateString()
               : ''}
           </p>
+          {/* <p className='item-info'>
+            <b>Number of Purchases: </b>
+            {item.numberOfPurchases}
+          </p> */}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

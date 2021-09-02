@@ -43,6 +43,17 @@ a {
   list-style-type: none;
 }
 
+.icon-key span {
+  vertical-align: super;
+}
+
+@media screen and (max-width: 800px) {
+  .icon-key span {
+    vertical-align: super;
+    font-size: 12px;
+  }
+}
+
 /* Grocery card styles */
 .item-name {
   padding: 10px 20px 10px 20px;

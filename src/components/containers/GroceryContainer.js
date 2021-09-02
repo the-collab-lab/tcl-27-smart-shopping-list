@@ -8,6 +8,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import MaterialIcon, {
+  circle,
+  remove_circle,
+  stars,
+  radio_button_unchecked,
+  delete_forever,
+} from 'material-icons-react';
 
 const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
@@ -116,6 +123,17 @@ const GroceryContainer = ({ setLoggedIn }) => {
             </Button>
           </InputGroup>
         </label>
+        <div className="icon-key">
+          <MaterialIcon icon="stars" />
+          <span>Soon ~ </span>
+          <MaterialIcon icon="circle" />
+          <span>Kind of Soon ~ </span>
+          <MaterialIcon icon="radio_button_unchecked" />
+          <span>Not Soon ~ </span>
+          <MaterialIcon icon="remove_circle" />
+          <span>Inactive</span>
+        </div>
+        <br />
         <ul className="list">
           {grocery
             .sort(sortByInactive)
