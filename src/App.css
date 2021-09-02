@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers');
-@import url('https://fonts.googleapis.com/css?family=Courgette');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
 .App {
   text-align: center;
@@ -24,6 +24,7 @@ a {
   text-align: center;
   background: #52d8e0;
   color: white;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.082);
 }
 
 .header h1 {
@@ -53,7 +54,7 @@ a {
 }
 
 .item-name span {
-  font-family: 'Courgette';
+  font-family: 'Quicksand';
 }
 
 .item-name .accordion-body p {
@@ -62,7 +63,7 @@ a {
 }
 
 .item-info {
-  font-family: 'Courgette';
+  font-family: 'Quicksand';
 }
 
 .accordion-collapse {
@@ -204,6 +205,7 @@ Form {
 /* Home component styles */
 main {
   padding-top: 10px;
+  font-family: 'Quicksand';
 }
 
 input#token {

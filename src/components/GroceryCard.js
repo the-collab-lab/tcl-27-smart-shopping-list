@@ -181,7 +181,9 @@ const GroceryCard = ({ item }) => {
               onClick={(e) => e.stopPropagation()}
               onFocus={(e) => e.stopPropagation()}
             />
-            <span>{item.itemName}</span>
+            <b>
+              <span>{item.itemName}</span>
+            </b>
             <button
               className="deleteButton"
               type="deleteButton"

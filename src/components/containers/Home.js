@@ -65,7 +65,9 @@ class Home extends Component {
     return (
       <main>
         <MaterialIcon icon="flutter_dash" id="largeLogo" />
-        <h4>Welcome to WootWoot!</h4>
+        <h4>
+          <b>Welcome to WootWoot!</b>
+        </h4>
         <br />
         <p>
           <label htmlFor="token">Please enter an existing list token:</label>
