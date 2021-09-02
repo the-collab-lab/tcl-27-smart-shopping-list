@@ -7,6 +7,7 @@ import UserToken from '../UserToken';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
@@ -74,16 +75,21 @@ const GroceryContainer = ({ setLoggedIn }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner animation="border" role="status" className="m-5">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (grocery.length === 0 && !loading) {
     return (
       <div>
         <UserToken />
+        <br />
         <p>Your shopping list is currently empty.</p>
-        <button type="submit" onClick={handleClick}>
+        <Button type="submit" variant="outline-secondary" onClick={handleClick}>
           Add an item
-        </button>
+        </Button>
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );

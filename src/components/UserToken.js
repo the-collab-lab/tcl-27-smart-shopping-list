@@ -12,7 +12,8 @@ const UserToken = () => {
         </Accordion.Header>
         <Accordion.Body>
           <p>
-            Share this token: <b>{localStorage.getItem('token')}</b>
+            Share this token: <br />
+            <b>{localStorage.getItem('token')}</b>
           </p>
         </Accordion.Body>
       </Accordion>

@@ -21,7 +21,6 @@ a {
   position: sticky;
   top: 0;
   z-index: 20;
-  /* padding: 10px; */
   text-align: center;
   background: #52d8e0;
   color: white;
@@ -33,36 +32,14 @@ a {
 }
 
 .header .material-icons {
-  font-size: 40px !important;
+  font-size: 50px !important;
+  margin-top: 5px;
 }
 
-/* .App-link {
-  color: #09d3ac;
-} */
-
-/* nav {
-  position: fixed;
-  bottom: 0px;
-  text-align: center;
-  width: 100%;
-} */
-
-/* ul {
-  background-color: #fde49c;
-  margin-bottom: 0 !important;
-  overflow: scroll;
-  height: fit-content;
-} */
-
-/* li {
-  list-style-type: none;
-  display: inline;
-  padding: 0px;
-} */
-
 .list {
-  padding: 0px 0px 100px 0px;
+  padding: 0px 20px 100px 20px;
   z-index: -1;
+  list-style-type: none;
 }
 
 /* Grocery card styles */
@@ -82,6 +59,10 @@ a {
 .item-name .accordion-body p {
   text-align: left;
   margin: 0;
+}
+
+.item-info {
+  font-family: 'Courgette';
 }
 
 .accordion-collapse {
@@ -131,10 +112,6 @@ button .deleteButton {
   box-shadow: none !important;
 }
 
-/* .log-out-button {
-  float: right;
-} */
-
 .btn-outline-info {
   color: #636363 !important;
   border-color: #636363 !important;
@@ -142,9 +119,18 @@ button .deleteButton {
 
 /* User token styles */
 .tokenAccordion {
+  margin: auto;
+  text-align: auto;
+  width: 35%;
   padding-top: 10px;
-  padding-left: 20px;
   background-color: #fde49c;
+}
+
+@media screen and (max-width: 800px) {
+  .tokenAccordion {
+    width: 80% !important;
+    text-align: center;
+  }
 }
 
 .tokenAccordion p {
@@ -165,11 +151,24 @@ button .deleteButton {
 
 /* Search field styles */
 #search-field {
-  margin: 20px 75px 20px 0;
+  margin: 20px 20px 20px 0;
+  width: 100% !important;
+  border: 1px solid #ced4da;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+
+@media screen and (max-width: 800px) {
+  #search-field {
+    width: 100% !important;
+    text-align: center;
+    display: flex !important;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
 }
 
 /* Add item component styles */
-
 .lastPurchase {
   padding: 20px;
 }
@@ -215,7 +214,15 @@ input#token {
 }
 
 .input-group {
-  width: 450px !important;
+  width: 50% !important;
+  display: inline-flex !important;
+}
+
+@media screen and (max-width: 800px) {
+  input#token {
+    width: 80% !important;
+    margin: auto;
+  }
 }
 
 #home-input-token button {
@@ -223,4 +230,24 @@ input#token {
   height: 37px;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
+}
+
+@media screen and (max-width: 800px) {
+  #home-input-token button {
+    margin-top: 16px;
+    margin-left: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .input-group {
+    width: 100% !important;
+    align-items: center;
+    display: block !important;
+  }
+}
+
+#largeLogo {
+  font-size: 250px !important;
 }

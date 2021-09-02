@@ -9,8 +9,7 @@
   padding: 10px 0 0 0;
   overflow: hidden;
   z-index: 10;
-  /* border-top: solid #52D8E0; */
-  /* background-color: #52D8E0; */
+  background-color: #52d8e0;
 }
 
 .nav-bar li {
@@ -20,7 +19,6 @@
   float: left;
   width: 25%;
   font-family: 'Bangers';
-  /* border-right: 1px solid #bbb; */
 }
 
 .nav-bar li:last-child {
@@ -35,11 +33,15 @@
 .nav-link:hover {
   transition: 0.2s;
   transition-timing-function: ease;
-  /* font-weight: bold; */
   text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }
 
 .nav-link.active {
-  /* font-weight: bold; */
   text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+@media only screen and (max-width: 510px) {
+  .nav-link {
+    font-size: 15px;
+  }
 }

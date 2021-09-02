@@ -4,12 +4,11 @@ import firebase from 'firebase/app';
 import DatePicker from 'react-datepicker';
 import BottomNav from './BottomNav';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Container from 'react-bootstrap/Container';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import UserToken from './UserToken';
 import Alert from './Alert';
+import Spinner from 'react-bootstrap/Spinner';
 
 const initialState = {
   itemName: '',
@@ -40,10 +39,10 @@ class AddItem extends React.Component {
     let itemNameError = '';
     let frequencyError = '';
     if (!this.state.itemName) {
-      itemNameError = 'Name needs to exist';
+      itemNameError = 'Name has to exist.';
     }
     if (!this.state.frequency) {
-      frequencyError = 'Please pick when you will need to buy next';
+      frequencyError = 'Please select next purchase date.';
     }
     if (itemNameError || frequencyError) {
       this.setState({ itemNameError, frequencyError });
@@ -131,7 +130,6 @@ class AddItem extends React.Component {
             .then(() => {
               setTimeout(() => {
                 return this.setState({
-                  itemName: '',
                   frequency: '',
                   lastPurchase: null,
                   itemNameError: '',
@@ -139,6 +137,9 @@ class AddItem extends React.Component {
                   successModal: false,
                 });
               }, 2000);
+            })
+            .then(() => {
+              return setTimeout(() => this.setState({ itemName: '' }), 2200);
             });
         } else {
           this.setState({
@@ -161,7 +162,11 @@ class AddItem extends React.Component {
 
   render() {
     if (this.state.loading == true) {
-      return <div>Loading...</div>;
+      return (
+        <Spinner animation="border" role="status" className="m-5">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      );
     } else {
       return (
         <div>
@@ -197,9 +202,11 @@ class AddItem extends React.Component {
                   <option value="">
                     When do you need to purchase this item next?
                   </option>
-                  <option value="7">Soon</option>
-                  <option value="14">Kind of Soon</option>
-                  <option value="30">Not Soon</option>
+                  <option value="7">Soon (Within the Next 7 Days)</option>
+                  <option value="14">
+                    Kind of Soon (Within the Next 14 Days)
+                  </option>
+                  <option value="30">Not Soon (Within the Next Month)</option>
                 </Form.Select>
               </div>
             </Form.Group>

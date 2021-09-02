@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { fb } from '../../lib/firebase';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Container from 'react-bootstrap/Container';
 import FormControl from 'react-bootstrap/FormControl';
+import MaterialIcon, { flutter_dash } from 'material-icons-react';
+import Alert from '../Alert';
 
 class Home extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Home extends Component {
     this.state = {
       token: '',
       tokens: [],
+      successModal: false,
     };
   }
 
@@ -47,19 +49,23 @@ class Home extends Component {
         token: '',
       });
     } else {
-      alert('Sorry, token not found. Try again or create a new list.');
+      this.setState({
+        successModal: true,
+        alertPrompt: 'Sorry, token not found. Try again or create a new list.',
+      });
+      setTimeout(() => {
+        return this.setState({
+          successModal: false,
+        });
+      }, 2000);
     }
   };
 
   render() {
     return (
       <main>
+        <MaterialIcon icon="flutter_dash" id="largeLogo" />
         <h4>Welcome to WootWoot!</h4>
-        <br />
-        <h5>
-          Please create a new shopping list or enter a token to join an existing
-          list.
-        </h5>
         <br />
         <p>
           <label htmlFor="token">Please enter an existing list token:</label>
@@ -83,12 +89,17 @@ class Home extends Component {
           </Button>
         </InputGroup>
         <br />
-        <br />
 
         <p>Or create a new shopping list:</p>
         <Button variant="outline-info" onClick={this.props.handleClick}>
           Create List...
         </Button>
+
+        <Alert
+          show={this.state.successModal}
+          onHide={() => this.setState({ successModal: false })}
+          alertPrompt={this.state.alertPrompt}
+        />
       </main>
     );
   }

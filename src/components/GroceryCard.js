@@ -2,9 +2,7 @@ import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
 import calculateEstimate from '../lib/estimates';
 import { fb } from '../lib/firebase';
-import Collapsible from 'react-collapsible';
 import Accordion from 'react-bootstrap/accordion';
-import Card from 'react-bootstrap/Card';
 import MaterialIcon, {
   circle,
   remove_circle,
@@ -203,13 +201,13 @@ const GroceryCard = ({ item }) => {
           </div>
         </Accordion.Header>
         <Accordion.Body style={{ background: color }}>
-          <p>
+          <p className="item-info">
             <b>Last Purchase Date:</b>{' '}
             {item.lastPurchase
               ? item.lastPurchase.toDate().toDateString()
               : 'N/A'}
           </p>
-          <p>
+          <p className="item-info">
             <b>Next Estimated Purchase Date:</b>{' '}
             {item.nextPurchaseDate
               ? item.nextPurchaseDate.toDate().toDateString()

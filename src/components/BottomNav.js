@@ -1,22 +1,18 @@
 import React from 'react';
 import '../css/bottomNav.css';
-import { NavLink } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import UserToken from './UserToken';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const BottomNav = ({ setLoggedIn }) => {
+  const history = useHistory();
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.clear();
     setLoggedIn(false);
+    history.push('/');
   };
 
   return (
     <div className="nav-bar">
-      {/* <UserToken /> */}
       <ul>
         <li>
           <NavLink className="nav-link" to="/list">
