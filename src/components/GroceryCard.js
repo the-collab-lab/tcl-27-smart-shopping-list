@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
 import calculateEstimate from '../lib/estimates';
 import { fb } from '../lib/firebase';
-import Accordion from 'react-bootstrap/Accordion';
+import { Accordion } from 'react-bootstrap';
 import MaterialIcon, {
   circle,
   remove_circle,
