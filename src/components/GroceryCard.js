@@ -162,12 +162,12 @@ const GroceryCard = ({ item }) => {
   };
 
   return (
-    <Accordion flush>
-      <Accordion.Item eventKey="0">
-        <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
+    <Accordion flush aria-expanded="false">
+      <Accordion.Item eventKey="0" aria-expanded="false">
+        {/* <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
           Purchased
-        </label>
-        <Accordion.Header>
+        </label> */}
+        <Accordion.Header aria-expanded="false">
           <div className="item-name" style={{ background: color }}>
             <MaterialIcon icon={itemIcon} />
             <input
@@ -200,7 +200,7 @@ const GroceryCard = ({ item }) => {
             />
           </div>
         </Accordion.Header>
-        <Accordion.Body style={{ background: color }}>
+        <Accordion.Body style={{ background: color }} aria-expanded="false">
           <p className="item-info">
             <b>Last Purchase Date:</b>{' '}
             {item.lastPurchase

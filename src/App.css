@@ -114,14 +114,14 @@ button .deleteButton {
 .accordion-button:not(.collapsed) {
   color: inherit !important;
   background-color: #fde49c !important;
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
 }
 
 .accordion-button:focus {
   z-index: -1;
   border-color: #fde49c !important;
   outline: 0;
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
 }
 
 .btn-outline-info {
