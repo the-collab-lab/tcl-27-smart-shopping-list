@@ -1,5 +1,5 @@
 import React from 'react';
-import Accordion from 'react-bootstrap/Accordion';
+import { Accordion } from 'react-bootstrap-accordion';
 
 const UserToken = () => {
   return (
