@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+
+.nav-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 10;
+  background-color: #52d8e0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* text-align: center; */
+}
+
+.nav-bar li {
+  vertical-align: top;
+  display: inline;
+  padding: 5px;
+  float: left;
+  width: 25%;
+  font-family: 'Bangers';
+}
+
+.nav-link {
+  font-size: 25px;
+}
+
+.nav-link:hover {
+  transition: 0.2s;
+  transition-timing-function: ease;
+  text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link.active {
+  text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.nav-bar li:last-child {
+  border-right: none;
+  float: right;
+}
+
+.dropdown {
+  padding: 5px;
+}
+
+.dropdown-btn {
+  float: right;
+  padding: 10px;
+  margin: 8px;
+  width: 70px;
+  /* background-color: rgba(128, 128, 128, 0.301);
+  border-color: rgba(128, 128, 128, 0); */
+  border: solid 2px white;
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+.dropdown-menu {
+  font-family: 'Bangers';
+  width: 25%;
+  padding: 0;
+}
+
+@media only screen and (max-width: 510px) {
+  .nav-bar {
+    overflow: visible;
+  }
+}

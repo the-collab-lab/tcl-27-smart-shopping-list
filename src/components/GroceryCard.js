@@ -2,12 +2,23 @@ import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
 import calculateEstimate from '../lib/estimates';
 import { fb } from '../lib/firebase';
-import Collapsible from 'react-collapsible';
+import { Accordion } from 'react-bootstrap';
+import MaterialIcon, {
+  circle,
+  remove_circle,
+  stars,
+  radio_button_unchecked,
+  delete_forever,
+} from 'material-icons-react';
+import ConfirmModal from './ConfirmModal';
 
 const GroceryCard = ({ item }) => {
   const [purchased, setPurchased] = useState(false);
   const [timeFrame, setTimeFrame] = useState('');
   const [color, setColor] = useState('white');
+  const [opacity, setOpacity] = useState('100%');
+  const [itemIcon, setItemIcon] = useState('');
+  const [confirmView, setConfirmView] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -54,17 +65,25 @@ const GroceryCard = ({ item }) => {
   const setTimeTillNextPurchase = () => {
     if (isInactive()) {
       setTimeFrame('Inactive');
-      setColor('grey');
+      setColor('#8FA2A3');
+      setOpacity('50%');
+      setItemIcon('remove_circle');
     } else {
       if (daysUntilPurchase <= 7) {
         setTimeFrame('Soon');
-        setColor('green');
+        setColor('#52D8E0');
+        setOpacity('50%');
+        setItemIcon('stars');
       } else if (daysUntilPurchase > 7 && daysUntilPurchase < 30) {
         setTimeFrame('Kind of Soon');
-        setColor('yellow');
+        setColor('#64C9CF');
+        setOpacity('50%');
+        setItemIcon('circle');
       } else if (daysUntilPurchase >= 30) {
         setTimeFrame('Not Soon');
-        setColor('red');
+        setColor('#7BB4B7');
+        setOpacity('50%');
+        setItemIcon('radio_button_unchecked');
       }
     }
   };
@@ -98,9 +117,7 @@ const GroceryCard = ({ item }) => {
   };
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure?')) {
-      ref.delete();
-    }
+    ref.delete();
   };
 
   const purchasedTimeLimit = () => {
@@ -145,33 +162,64 @@ const GroceryCard = ({ item }) => {
   };
 
   return (
-    <div aria-label={timeFrame} style={{ background: color }}>
-      <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
-        Purchased
-      </label>
-      <input
-        id="purchased-checkbox"
-        type="checkbox"
-        onChange={() => updatePurchased()}
-        value={purchased}
-        checked={purchased}
-      />
-      <button type="button" onClick={handleDelete}>
-        X
-      </button>
-      <Collapsible trigger={item.itemName}>
-        <p>
-          LAST PURCHASE DATE:{' '}
-          {item.lastPurchase ? item.lastPurchase.toDate().toDateString() : 'NA'}
-        </p>
-        <p>
-          NEXT ESTIMATED PURCHASE DATE:{' '}
-          {item.nextPurchaseDate
-            ? item.nextPurchaseDate.toDate().toDateString()
-            : ''}
-        </p>
-      </Collapsible>
-    </div>
+    <Accordion flush>
+      <Accordion.Item eventKey="0">
+        {/* <label style={{ display: 'none' }} htmlFor="purchased-checkbox">
+          Purchased
+        </label> */}
+        <Accordion.Header>
+          <div className="item-name" style={{ background: color }}>
+            <MaterialIcon icon={itemIcon} />
+            <input
+              id="purchased-checkbox"
+              type="checkbox"
+              onChange={() => updatePurchased()}
+              value={purchased}
+              checked={purchased}
+              onClick={(e) => e.stopPropagation()}
+              onFocus={(e) => e.stopPropagation()}
+            />
+            <b>
+              <span>{item.itemName}</span>
+            </b>
+            <button
+              className="deleteButton"
+              type="deleteButton"
+              onClick={(e) => {
+                setConfirmView(true);
+                e.stopPropagation();
+              }}
+            >
+              <MaterialIcon icon="delete_forever" />
+            </button>
+
+            <ConfirmModal
+              confirmView={confirmView}
+              handleDelete={handleDelete}
+              setConfirmView={setConfirmView}
+            />
+          </div>
+        </Accordion.Header>
+        <Accordion.Body style={{ background: color }}>
+          <p className="item-info">
+            <b>Last Purchase Date:</b>{' '}
+            {item.lastPurchase
+              ? item.lastPurchase.toDate().toDateString()
+              : 'N/A'}
+          </p>
+          <p className="item-info">
+            <b>Next Estimated Purchase Date:</b>{' '}
+            {item.nextPurchaseDate
+              ? item.nextPurchaseDate.toDate().toDateString()
+              : ''}
+          </p>
+          {/* <p className='item-info'>
+            <b>Number of Purchases: </b>
+            {item.numberOfPurchases}
+          </p> */}
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   );
 };
 

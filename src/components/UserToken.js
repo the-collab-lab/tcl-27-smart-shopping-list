@@ -1,12 +1,22 @@
 import React from 'react';
+import { Accordion } from 'react-bootstrap';
 
 const UserToken = () => {
   return (
-    <div>
-      <p>
-        If you want to share your list please share this token:{' '}
-        {localStorage.getItem('token')}
-      </p>
+    <div className="tokenAccordion">
+      <Accordion>
+        <Accordion.Header>
+          <p>
+            <em>Want to share your shopping list?</em>
+          </p>
+        </Accordion.Header>
+        <Accordion.Body>
+          <p>
+            Share this token: <br />
+            <b>{localStorage.getItem('token')}</b>
+          </p>
+        </Accordion.Body>
+      </Accordion>
     </div>
   );
 };

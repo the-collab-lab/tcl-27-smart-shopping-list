@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { fb } from '../../lib/firebase';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Container from 'react-bootstrap/Container';
 import FormControl from 'react-bootstrap/FormControl';
+import MaterialIcon, { flutter_dash } from 'material-icons-react';
+import Alert from '../Alert';
 
 class Home extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Home extends Component {
     this.state = {
       token: '',
       tokens: [],
+      successModal: false,
     };
   }
 
@@ -47,32 +49,39 @@ class Home extends Component {
         token: '',
       });
     } else {
-      alert('Sorry, token not found. Try again or create a new list.');
+      this.setState({
+        successModal: true,
+        alertPrompt: 'Sorry, token not found. Try again or create a new list.',
+      });
+      setTimeout(() => {
+        return this.setState({
+          successModal: false,
+        });
+      }, 2000);
     }
   };
 
   render() {
     return (
-      <Container>
-        <h1>Smart Shopping List</h1>
-        <h2>Welcome to our App!</h2>
-        <h3>
-          Please create a new shopping list or enter a token to join an existing
-          list.
-        </h3>
-        <br />
+      <main>
+        <MaterialIcon icon="flutter_dash" id="largeLogo" />
         <h4>
-          <label htmlFor="token">Please enter an existing token:</label>
+          <b>Welcome to WootWoot!</b>
         </h4>
-        <InputGroup className="mb-3">
+        <br />
+        <p>
+          <label htmlFor="token">Please enter an existing list token:</label>
+        </p>
+        <InputGroup className="mb-3" id="home-input-token">
           <FormControl
             type="text"
             id="token"
             onChange={this.handleChange}
             value={this.state.token}
+            placeholder="Please enter an existing list token..."
           />
           <Button
-            variant="primary"
+            variant="outline-info"
             type="submit"
             name="submit"
             value="submit"
@@ -82,13 +91,18 @@ class Home extends Component {
           </Button>
         </InputGroup>
         <br />
-        <br />
 
-        <h4>Or create a new shopping list:</h4>
-        <Button variant="primary" onClick={this.props.handleClick}>
+        <p>Or create a new shopping list:</p>
+        <Button variant="outline-info" onClick={this.props.handleClick}>
           Create List...
         </Button>
-      </Container>
+
+        <Alert
+          show={this.state.successModal}
+          onHide={() => this.setState({ successModal: false })}
+          alertPrompt={this.state.alertPrompt}
+        />
+      </main>
     );
   }
 }

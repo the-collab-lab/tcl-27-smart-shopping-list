@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import firebase from 'firebase/app';
-import { useCollection } from 'react-firebase-hooks/firestore';
+
 import 'firebase/firestore';
 import getToken from './lib/tokens';
 import Home from './components/containers/Home';
@@ -48,29 +46,41 @@ function App() {
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/">
-          {loggedIn ? (
-            <Redirect to="/list" />
-          ) : (
-            <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
-          )}
-        </Route>
+        <Route
+          exact
+          path="/"
+          render={() =>
+            loggedIn ? (
+              <Redirect to="list" />
+            ) : (
+              <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
+            )
+          }
+        ></Route>
 
-        <Route exact path="/list">
-          {loggedIn ? (
-            <GroceryContainer setLoggedIn={setLoggedIn} />
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
+        <Route
+          exact
+          path="/list"
+          render={() =>
+            loggedIn ? (
+              <GroceryContainer setLoggedIn={setLoggedIn} />
+            ) : (
+              <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
+            )
+          }
+        ></Route>
 
-        <Route exact path="/add-an-item">
-          {loggedIn ? (
-            <AddItem setLoggedIn={setLoggedIn} />
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
+        <Route
+          exact
+          path="/add-an-item"
+          render={() =>
+            loggedIn ? (
+              <AddItem setLoggedIn={setLoggedIn} />
+            ) : (
+              <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
+            )
+          }
+        ></Route>
       </Switch>
     </div>
   );

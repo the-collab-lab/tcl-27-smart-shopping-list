@@ -1,43 +1,266 @@
+@import url('https://fonts.googleapis.com/css?family=Bangers');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
 .App {
   text-align: center;
+  background-color: #fde49c;
+  height: 100vh;
+  width: 100vw;
+  overflow: scroll;
 }
 
 .App-logo {
   height: 40vmin;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a {
+  color: #636363 !important;
 }
 
-.App-link {
-  color: #09d3ac;
-}
-
-nav {
-  position: fixed;
-  bottom: 0px;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   text-align: center;
-  width: 100%;
+  background: #52d8e0;
+  color: white;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.082);
 }
 
-li {
+.header h1 {
+  font-size: 50px;
+  font-family: 'Bangers';
+}
+
+.header .material-icons {
+  font-size: 50px !important;
+  margin-top: 5px;
+}
+
+.list {
+  padding: 0px 20px 100px 20px;
+  /* z-index: -1; */
   list-style-type: none;
-  display: inline;
+}
+
+.icon-key span {
+  vertical-align: super;
+}
+
+@media screen and (max-width: 800px) {
+  .icon-key span {
+    vertical-align: super;
+    font-size: 12px;
+  }
+}
+
+/* Grocery card styles */
+.item-name {
+  padding: 10px 20px 10px 20px;
+  width: 100vw;
+  margin: 0px;
+  border-style: solid;
+  border-color: #fde49c;
+  border-radius: 15px;
+}
+
+.item-name span {
+  font-family: 'Quicksand';
+}
+
+.item-name .accordion-body p {
+  text-align: left;
+  margin: 0;
+}
+
+.item-info {
+  font-family: 'Quicksand';
+}
+
+.accordion-collapse {
+  background-color: #fde49c;
+}
+
+.accordion-collapse .accordion-body {
+  border-style: solid;
+  border-color: #fde49c;
+  border-radius: 15px;
+  margin: 0 20px 0 0;
+}
+
+.accordion-header .accordion-button {
+  padding: 0px;
+  background-color: #fde49c;
+}
+
+.accordion-header::after {
+  background-color: #fde49c;
+}
+
+button .deleteButton {
+  margin: 0px;
+  float: right;
+  border: none;
+  background: none;
+}
+
+#purchased-checkbox {
+  margin: 0 10px 0 10px;
+  padding: 20px;
+  align-self: baseline;
+  zoom: 1.8;
+}
+
+.accordion-button:not(.collapsed) {
+  color: inherit !important;
+  background-color: #fde49c !important;
+  /* box-shadow: none !important; */
+}
+
+.accordion-button:focus {
+  z-index: -1;
+  border-color: #fde49c !important;
+  outline: 0;
+  /* box-shadow: none !important; */
+}
+
+.btn-outline-info {
+  color: #636363 !important;
+  border-color: #636363 !important;
+}
+
+/* User token styles */
+.tokenAccordion {
+  margin: auto;
+  text-align: auto;
+  width: 35%;
+  padding-top: 10px;
+  background-color: #fde49c;
+}
+
+@media screen and (max-width: 800px) {
+  .tokenAccordion {
+    width: 80% !important;
+    text-align: center;
+  }
+}
+
+.tokenAccordion p {
+  background: #fde49c;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+}
+
+.tokenAccordion .accordion-body {
+  padding: 0;
+}
+
+.tokenAccordion .accordion-body p {
+  padding: 0;
+  text-align: center;
+}
+
+/* Search field styles */
+#search-field {
+  margin: 20px 20px 20px 0;
+  width: 100% !important;
+  border: 1px solid #ced4da;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+
+@media screen and (max-width: 800px) {
+  #search-field {
+    width: 100% !important;
+    text-align: center;
+    display: flex !important;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
+}
+
+/* Add item component styles */
+.lastPurchase {
+  padding: 20px;
+}
+
+.lastPurchase .form-label {
   padding: 10px;
 }
 
-.nav-link:hover {
-  font-weight: bold;
+Form {
+  padding-top: 35px;
+  text-align: center;
+  display: inline-block;
 }
 
-.nav-link.active {
-  font-weight: bold;
+#item-name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#frequency-select {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+
+/* Home component styles */
+main {
+  padding-top: 10px;
+  font-family: 'Quicksand';
+}
+
+input#token {
+  text-align: center;
+  margin: 20px;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.input-group {
+  width: 50% !important;
+  display: inline-flex !important;
+}
+
+@media screen and (max-width: 800px) {
+  input#token {
+    width: 80% !important;
+    margin: auto;
+  }
+}
+
+#home-input-token button {
+  margin-top: 21px;
+  height: 37px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+@media screen and (max-width: 800px) {
+  #home-input-token button {
+    margin-top: 16px;
+    margin-left: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .input-group {
+    width: 100% !important;
+    align-items: center;
+    display: block !important;
+  }
+}
+
+#largeLogo {
+  font-size: 250px !important;
 }

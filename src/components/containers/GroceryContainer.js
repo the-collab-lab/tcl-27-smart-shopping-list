@@ -4,6 +4,17 @@ import GroceryCard from '../GroceryCard';
 import BottomNav from '../BottomNav';
 import { useHistory } from 'react-router-dom';
 import UserToken from '../UserToken';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
+import MaterialIcon, {
+  circle,
+  remove_circle,
+  stars,
+  radio_button_unchecked,
+  delete_forever,
+} from 'material-icons-react';
 
 const GroceryContainer = ({ setLoggedIn }) => {
   const [grocery, setGrocery] = useState([]);
@@ -71,35 +82,59 @@ const GroceryContainer = ({ setLoggedIn }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner animation="border" role="status" className="m-5">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
   if (grocery.length === 0 && !loading) {
     return (
       <div>
-        <p>Your shopping list is currently empty.</p>
-        <button type="submit" onClick={handleClick}>
-          Add an item
-        </button>
         <UserToken />
+        <br />
+        <p>Your shopping list is currently empty.</p>
+        <Button type="submit" variant="outline-secondary" onClick={handleClick}>
+          Add an item
+        </Button>
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
   } else {
     return (
       <div>
+        <UserToken />
         <label htmlFor="search-field">
-          <input
-            id="search-field"
-            type="text"
-            onChange={handleChange}
-            value={input}
-            placeholder="Search Item..."
-          />
+          <InputGroup size="md" id="search-field" type="text">
+            <FormControl
+              onChange={handleChange}
+              value={input}
+              placeholder="Search Item..."
+              aria-label="search-field"
+              aria-describedby="inputGroup-sizing-sm"
+            />
+            <Button
+              style={{ display: resetDisplay }}
+              onClick={handleResetClick}
+              variant="outline-secondary"
+              id="button-addon2"
+            >
+              X
+            </Button>
+          </InputGroup>
         </label>
-        <button onClick={handleResetClick} style={{ display: resetDisplay }}>
-          X
-        </button>
-        <ul>
+        <div className="icon-key">
+          <MaterialIcon icon="stars" />
+          <span>Soon ~ </span>
+          <MaterialIcon icon="circle" />
+          <span>Kind of Soon ~ </span>
+          <MaterialIcon icon="radio_button_unchecked" />
+          <span>Not Soon ~ </span>
+          <MaterialIcon icon="remove_circle" />
+          <span>Inactive</span>
+        </div>
+        <br />
+        <ul className="list">
           {grocery
             .sort(sortByInactive)
             .filter((g) =>
@@ -111,7 +146,6 @@ const GroceryContainer = ({ setLoggedIn }) => {
               </li>
             ))}
         </ul>
-        <UserToken />
         <BottomNav setLoggedIn={setLoggedIn} />
       </div>
     );
