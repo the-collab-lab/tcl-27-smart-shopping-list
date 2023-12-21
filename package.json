@@ -28,9 +28,6 @@
     "prettier": "^2.2.1",
     "react-scripts": "5.0.1"
   },
-  "overrides": {
-    "@svgr/webpack": "^6.2.1"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "CI= react-scripts build",
