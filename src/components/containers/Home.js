@@ -3,7 +3,7 @@ import { fb } from '../../lib/firebase';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import MaterialIcon, { flutter_dash } from 'material-icons-react';
+import MaterialIcon from 'material-icons-react';
 import Alert from '../Alert';
 
 class Home extends Component {
@@ -93,7 +93,10 @@ class Home extends Component {
         <br />
 
         <p>Or create a new shopping list:</p>
-        <Button variant="outline-info" onClick={this.props.handleClick}>
+        <Button
+          variant="outline-info"
+          onClick={() => console.log('Creating new lists is disabled')}
+        >
           Create List...
         </Button>
 

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import 'firebase/firestore';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 import getToken from './lib/tokens';
 import Home from './components/containers/Home';
 import GroceryContainer from './components/containers/GroceryContainer';
@@ -53,7 +54,10 @@ function App() {
             loggedIn ? (
               <Redirect to="list" />
             ) : (
-              <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
+              <>
+                <Home setLoggedIn={setLoggedIn} handleClick={handleClick} />
+                <ArchivalNoticeModal />
+              </>
             )
           }
         ></Route>
